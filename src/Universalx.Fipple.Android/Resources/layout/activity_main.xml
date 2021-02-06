@@ -5,16 +5,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="256dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="40dp">
+        <ImageView
+            android:src="@drawable/cloud"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/imgCloud"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="Cloud image"/>
+        <TextView
+            android:text="Universalx"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtCompName"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="40dp"/>
+        <TextView
+            android:text="Sign In"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtSignIn"
+            android:fontFamily="sans-serif"
+            android:layout_marginBottom="5dp" />
+        <TextView
+            android:text="Hi there! Nice to see you again."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/txtNiceToSee"
+            android:fontFamily="sans-serif"/>
         <TextView
             android:text="Phone number"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtPhoneNumber"
@@ -23,9 +53,52 @@
             android:textStyle="bold"/>
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:minWidth="25px"
             android:minHeight="25px"
+            android:layout_marginBottom="30dp"
             android:id="@+id/inpPhoneNumber"/>
+        <TextView
+            android:text="Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtPassword"
+            android:textColor="#F85F6A"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"/>
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/inpPassword" />
+        <Button
+            android:text="Sign In"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSignIn"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_radius"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp">
+        <TextView
+            android:text="Forgot Password?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtForgotPassword"
+            android:clickable="true"/>
+        <TextView
+            android:text="Sign Up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtSignUp"
+            android:gravity="right"
+            android:textColor="#F85F6A"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"/>
+    </ LinearLayout>
 </LinearLayout>
