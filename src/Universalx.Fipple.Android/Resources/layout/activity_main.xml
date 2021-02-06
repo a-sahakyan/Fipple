@@ -100,5 +100,5 @@
             android:textColor="#F85F6A"
             android:fontFamily="sans-serif"
             android:textStyle="bold"/>
-    </ LinearLayout>
+    </LinearLayout>
 </LinearLayout>
