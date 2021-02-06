@@ -45,6 +45,7 @@
             android:fontFamily="sans-serif"/>
         <TextView
             android:text="Phone number"
+            android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtPhoneNumber"
@@ -84,23 +85,34 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="256dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="25dp"
+        android:gravity="bottom"
         android:orientation="horizontal">
-        <TextView
+        <Button
             android:text="Forgot Password?"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtForgotPassword"
-            android:clickable="true"/>
-        <TextView
+            android:layout_height="41.5dp"
+            android:textColor="#989EB1"
+            android:textAllCaps="false"
+            android:id="@+id/btnForgotPassword"
+            android:textStyle="bold"
+            android:background="?android:colorBackground"
+            android:gravity="left"
+            android:paddingLeft="5dp"
+            android:fontFamily="sans-serif"
+            style="?android:attr/borderlessButtonStyle"/>
+        <Button
             android:text="Sign Up"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtSignUp"
+            android:layout_height="28.5dp"
             android:gravity="right"
+            android:background="?android:colorBackground"
             android:textColor="#F85F6A"
+            android:textAllCaps="false"
+            android:id="@+id/btnSignUp"
+            android:textStyle="bold"
             android:fontFamily="sans-serif"
-            android:textStyle="bold"/>
+            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 </LinearLayout>
