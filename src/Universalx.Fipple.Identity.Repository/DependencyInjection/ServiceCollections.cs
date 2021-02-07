@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Universalx.Fipple.Identity.DBMap;
-using Universalx.Fipple.Identity.DBMap.Entities;
 
 namespace Universalx.Fipple.Identity.Repository.DependencyInjection
 {
