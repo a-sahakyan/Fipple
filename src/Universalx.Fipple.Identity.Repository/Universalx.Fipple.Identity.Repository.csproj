@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Universalx.Fipple.Identity.DBMap\Universalx.Fipple.Identity.DBMap.csproj" />
+  </ItemGroup>
+
 </Project>

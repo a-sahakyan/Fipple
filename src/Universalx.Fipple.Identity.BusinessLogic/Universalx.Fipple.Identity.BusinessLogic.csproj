@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Universalx.Fipple.Identity.Abstraction\Universalx.Fipple.Identity.Abstraction.csproj" />
+    <ProjectReference Include="..\Universalx.Fipple.Identity.Repository\Universalx.Fipple.Identity.Repository.csproj" />
+  </ItemGroup>
+
 </Project>
