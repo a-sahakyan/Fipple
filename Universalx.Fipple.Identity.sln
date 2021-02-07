@@ -15,11 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.DTO", "src\Universalx.Fipple.Identity.DTO\Universalx.Fipple.Identity.DTO.csproj", "{FC59DB19-3937-4D22-92A5-45B6C5E4ECC1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Data", "03.Data", "{F0703FE6-84D7-435C-A8A8-13D9A09F7EE6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Data Layer", "03.Data Layer", "{F0703FE6-84D7-435C-A8A8-13D9A09F7EE6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.Repository", "src\Universalx.Fipple.Identity.Repository\Universalx.Fipple.Identity.Repository.csproj", "{DB69E6E8-D95C-4B59-9BC5-B0198651B34E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.DBMap", "src\Universalx.Fipple.Identity.DBMap\Universalx.Fipple.Identity.DBMap.csproj", "{EB34F135-BBCF-4FA1-9DF1-569D67248B78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.General", "04.General", "{800A602D-2887-4227-AB70-33825A39BA67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
