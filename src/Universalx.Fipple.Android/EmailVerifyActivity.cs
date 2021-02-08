@@ -2,23 +2,18 @@
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
-using Android.Widget;
-using System;
 
 namespace Universalx.Fipple.Android
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
-    public class SignUpActivity : AppCompatActivity
+    public class EmailVerifyActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
-            SetContentView(Resource.Layout.activity_signUp);
-
-            Button btnContinue = FindViewById<Button>(Resource.Id.btnContinue);
-            btnContinue.Click += GoToEmailVerificationActivity;
+            SetContentView(Resource.Layout.activity_emailVerify);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] global::Android.Content.PM.Permission[] grantResults)
@@ -26,11 +21,6 @@ namespace Universalx.Fipple.Android
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-
-        public void GoToEmailVerificationActivity(object sender, EventArgs e)
-        {
-            StartActivity(typeof(EmailVerifyActivity));
         }
     }
 }
