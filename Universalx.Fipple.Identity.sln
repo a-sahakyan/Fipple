@@ -9,19 +9,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.Api", "01.Api", "{AD0240
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.Business Layer", "02.Business Layer", "{F3617B19-9407-4AD7-A917-FC34A9ACE119}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.Abstraction", "src\Universalx.Fipple.Identity.Abstraction\Universalx.Fipple.Identity.Abstraction.csproj", "{76411EF5-8A8E-4FFF-A2CE-1F45AA9C788C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universalx.Fipple.Identity.Abstraction", "src\Universalx.Fipple.Identity.Abstraction\Universalx.Fipple.Identity.Abstraction.csproj", "{76411EF5-8A8E-4FFF-A2CE-1F45AA9C788C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.BusinessLogic", "src\Universalx.Fipple.Identity.BusinessLogic\Universalx.Fipple.Identity.BusinessLogic.csproj", "{927720FE-5BEE-4DAE-BAFB-C3E693DDE79B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universalx.Fipple.Identity.BusinessLogic", "src\Universalx.Fipple.Identity.BusinessLogic\Universalx.Fipple.Identity.BusinessLogic.csproj", "{927720FE-5BEE-4DAE-BAFB-C3E693DDE79B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.DTO", "src\Universalx.Fipple.Identity.DTO\Universalx.Fipple.Identity.DTO.csproj", "{FC59DB19-3937-4D22-92A5-45B6C5E4ECC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universalx.Fipple.Identity.DTO", "src\Universalx.Fipple.Identity.DTO\Universalx.Fipple.Identity.DTO.csproj", "{FC59DB19-3937-4D22-92A5-45B6C5E4ECC1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03.Data Layer", "03.Data Layer", "{F0703FE6-84D7-435C-A8A8-13D9A09F7EE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.Repository", "src\Universalx.Fipple.Identity.Repository\Universalx.Fipple.Identity.Repository.csproj", "{DB69E6E8-D95C-4B59-9BC5-B0198651B34E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universalx.Fipple.Identity.Repository", "src\Universalx.Fipple.Identity.Repository\Universalx.Fipple.Identity.Repository.csproj", "{DB69E6E8-D95C-4B59-9BC5-B0198651B34E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.DBMap", "src\Universalx.Fipple.Identity.DBMap\Universalx.Fipple.Identity.DBMap.csproj", "{EB34F135-BBCF-4FA1-9DF1-569D67248B78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Universalx.Fipple.Identity.DBMap", "src\Universalx.Fipple.Identity.DBMap\Universalx.Fipple.Identity.DBMap.csproj", "{EB34F135-BBCF-4FA1-9DF1-569D67248B78}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04.General", "04.General", "{800A602D-2887-4227-AB70-33825A39BA67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.Constants", "src\Universalx.Fipple.Identity.Constants\Universalx.Fipple.Identity.Constants.csproj", "{8E4893CB-5E0D-4581-A12C-5C297FD69B89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Identity.Helpers", "src\Universalx.Fipple.Identity.Helpers\Universalx.Fipple.Identity.Helpers.csproj", "{C753F0B1-78E3-42DC-8E69-706CAE5154FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,14 @@ Global
 		{EB34F135-BBCF-4FA1-9DF1-569D67248B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB34F135-BBCF-4FA1-9DF1-569D67248B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB34F135-BBCF-4FA1-9DF1-569D67248B78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E4893CB-5E0D-4581-A12C-5C297FD69B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E4893CB-5E0D-4581-A12C-5C297FD69B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E4893CB-5E0D-4581-A12C-5C297FD69B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E4893CB-5E0D-4581-A12C-5C297FD69B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C753F0B1-78E3-42DC-8E69-706CAE5154FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C753F0B1-78E3-42DC-8E69-706CAE5154FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C753F0B1-78E3-42DC-8E69-706CAE5154FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C753F0B1-78E3-42DC-8E69-706CAE5154FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +76,8 @@ Global
 		{FC59DB19-3937-4D22-92A5-45B6C5E4ECC1} = {F3617B19-9407-4AD7-A917-FC34A9ACE119}
 		{DB69E6E8-D95C-4B59-9BC5-B0198651B34E} = {F0703FE6-84D7-435C-A8A8-13D9A09F7EE6}
 		{EB34F135-BBCF-4FA1-9DF1-569D67248B78} = {F0703FE6-84D7-435C-A8A8-13D9A09F7EE6}
+		{8E4893CB-5E0D-4581-A12C-5C297FD69B89} = {800A602D-2887-4227-AB70-33825A39BA67}
+		{C753F0B1-78E3-42DC-8E69-706CAE5154FD} = {800A602D-2887-4227-AB70-33825A39BA67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB6972AB-3361-4DE4-9010-E32E7218572F}

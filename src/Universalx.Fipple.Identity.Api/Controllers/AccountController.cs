@@ -8,7 +8,7 @@ namespace Universalx.Fipple.Identity.Api.Controllers
 {
     public class AccountController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Generate()
         {
             return View();
         }

@@ -11,6 +11,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
+      "launchUrl": "http://localhost:64437",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -18,7 +19,7 @@
     "Universalx.Fipple.Identity.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "",
+      "launchUrl": "http://localhost:64437",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
