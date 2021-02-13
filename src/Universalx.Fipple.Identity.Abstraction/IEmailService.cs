@@ -4,6 +4,6 @@ namespace Universalx.Fipple.Identity.Abstraction
 {
     public interface IEmailService
     {
-        Task SendVerificationCode(string code);
+        Task SendEmailAsync(string subject, string reciever, string message);
     }
 }

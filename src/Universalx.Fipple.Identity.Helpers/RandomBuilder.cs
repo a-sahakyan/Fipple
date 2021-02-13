@@ -3,9 +3,9 @@ using System.Security.Cryptography;
 
 namespace Universalx.Fipple.Identity.Helpers
 {
-    public static class Generator
+    public static class RandomBuilder
     {
-        public static string RandomizeNumber(int min, int max)
+        public static string GetRandomNumber(int min, int max)
         {
             RNGCryptoServiceProvider rngProvider = new RNGCryptoServiceProvider();
 

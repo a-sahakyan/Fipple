@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography;
 using Universalx.Fipple.Identity.Helpers;
 
 namespace Universalx.Fipple.Identity.DBMap.Entities
@@ -19,7 +18,7 @@ namespace Universalx.Fipple.Identity.DBMap.Entities
         public override string SecurityStamp
         {
             get => base.SecurityStamp; 
-            set => base.SecurityStamp = Generator.RandomizeNumber(100000, 999999);
+            set => base.SecurityStamp = RandomBuilder.GetRandomNumber(100000, 999999);
         }
     }
 }

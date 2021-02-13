@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Universalx.Fipple.Identity.Constants\Universalx.Fipple.Identity.Constants.csproj" />
+  </ItemGroup>
+
 </Project>

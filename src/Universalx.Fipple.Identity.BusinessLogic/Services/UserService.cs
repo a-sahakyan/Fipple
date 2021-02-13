@@ -6,6 +6,7 @@ using Universalx.Fipple.Identity.Abstraction;
 using Universalx.Fipple.Identity.Constants;
 using Universalx.Fipple.Identity.DBMap.Entities;
 using Universalx.Fipple.Identity.DTO.Request;
+using Universalx.Fipple.Identity.DTO.Response;
 
 namespace Universalx.Fipple.Identity.BusinessLogic.Services
 {
@@ -16,13 +17,16 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
         public UserService(UserManager<Users> userManager)
               => _userManager = userManager;
 
-        public async Task CreateAsync(RequestUserDto userDto)
+        public async Task<ResponseUserDto> CreateUserAsync(RequestUserDto userDto)
         {
             var user = await _userManager.FindByEmailAsync(userDto.Email);
 
-            if (user is not null) throw new InvalidOperationException(String.Format(Resources.Error.UserNotFound, user.Email));
+            if (user is not null)
+            {
+                throw new InvalidOperationException(string.Format(ResponseError.UserNotFound, user.Email));
+            }
 
-            var newUser = new Users
+            user = new Users
             {
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
@@ -31,10 +35,25 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
                 PasswordHash = userDto.Password
             };
 
-            IdentityResult identityResult = await _userManager.CreateAsync(newUser);
+            IdentityResult identityResult = await _userManager.CreateAsync(user);
 
-            // TODO: improve Error
-            if (!identityResult.Succeeded) throw new InvalidOperationException(String.Format(identityResult.Errors.First().Description, user.Email));
+            if (!identityResult.Succeeded)
+            {
+                throw new InvalidOperationException(string.Format(ResponseError.FailedToCreate, identityResult.Errors.Select(e => e.Description)));
+            }
+
+            var responseUserDto = new ResponseUserDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+                SecurityStamp = user.SecurityStamp
+            };
+
+            return responseUserDto;
         }
     }
 }
+
