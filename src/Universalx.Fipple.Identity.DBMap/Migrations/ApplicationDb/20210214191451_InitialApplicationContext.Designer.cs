@@ -10,13 +10,14 @@ using Universalx.Fipple.Identity.DBMap;
 namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210207161111_InitialApplicationContext")]
+    [Migration("20210214191451_InitialApplicationContext")]
     partial class InitialApplicationContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("identity")
                 .UseIdentityByDefaultColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.2");

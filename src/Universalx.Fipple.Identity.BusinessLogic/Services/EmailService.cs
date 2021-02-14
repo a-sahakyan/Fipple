@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using Universalx.Fipple.Identity.Abstraction;
@@ -22,13 +23,16 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
                 reciever = emailSettings.Receiver;
             }
 
-            using var client = new SmtpClient();
-            client.EnableSsl = true;
+            using var client = new SmtpClient(emailSettings.MailHost, emailSettings.MailPort);
 
-            MailMessage mailMessage = new MailMessage(emailSettings.From, reciever);
+            client.EnableSsl = true;
+            client.Credentials = new NetworkCredential(emailSettings.Sender, emailSettings.SenderPassword);
+
+            MailMessage mailMessage = new MailMessage(emailSettings.Sender, reciever);
 
             mailMessage.Subject = subject;
             mailMessage.Body = message;
+            mailMessage.IsBodyHtml = true;
 
             await client.SendMailAsync(mailMessage);
         }

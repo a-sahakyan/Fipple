@@ -7,5 +7,6 @@ namespace Universalx.Fipple.Identity.Abstraction
     public interface IUserService
     {
         Task<ResponseUserDto> CreateUserAsync(RequestUserDto userDto);
+        Task ConfirmAccountAsync(RequestConfirmAccountDto confirmAccountDto);
     }
 }

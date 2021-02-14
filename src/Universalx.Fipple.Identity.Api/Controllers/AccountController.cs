@@ -28,9 +28,16 @@ namespace Universalx.Fipple.Identity.Api.Controllers
 
         private async Task SendVerifyAccountEmailAsync(ResponseUserDto userDto)
         {
-            var verifyAccountTemplate = await EmailTemplateBuilder.GetVerifyAccountTemplateAsync(userDto.SecurityStamp);
+            string verifyAccountTemplate = await EmailTemplateBuilder.GetVerifyAccountTemplateAsync(userDto.SecurityStamp);
             string emailSubject = "Verify your new Fipple Account";
             await _emailService.SendEmailAsync(emailSubject, userDto.Email, verifyAccountTemplate);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmAccountAsync(RequestConfirmAccountDto confirmAccountDto)
+        {
+            await _userService.ConfirmAccountAsync(confirmAccountDto);
+            return Ok();
         }
     }
 }

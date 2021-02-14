@@ -15,6 +15,7 @@ namespace Universalx.Fipple.Identity.DBMap
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.HasDefaultSchema("identity");
         }
     }
 }

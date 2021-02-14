@@ -23,7 +23,7 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
 
             if (user is not null)
             {
-                throw new InvalidOperationException(string.Format(ResponseError.UserNotFound, user.Email));
+                throw new InvalidOperationException(string.Format(ResponseError.UserAlreadyExists, user.Email));
             }
 
             user = new Users
@@ -39,7 +39,8 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
 
             if (!identityResult.Succeeded)
             {
-                throw new InvalidOperationException(string.Format(ResponseError.FailedToCreate, identityResult.Errors.Select(e => e.Description)));
+                throw new InvalidOperationException(
+                    string.Format(ResponseError.FailedToCreate, identityResult.Errors.Select(e => e.Description)));
             }
 
             var responseUserDto = new ResponseUserDto
@@ -53,6 +54,30 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
             };
 
             return responseUserDto;
+        }
+
+        public async Task ConfirmAccountAsync(RequestConfirmAccountDto confirmAccountDto)
+        {
+            var user = await _userManager.FindByEmailAsync(confirmAccountDto.Email);
+
+            if (user is null)
+            {
+                throw new InvalidOperationException(string.Format(confirmAccountDto.Email, ResponseError.UserNotFound));
+            }
+
+            if (confirmAccountDto.VerificationCode != user.SecurityStamp)
+            {
+                throw new InvalidOperationException(string.Format(user.SecurityStamp, ResponseError.WrongCode));
+            }
+
+            user.EmailConfirmed = true;
+            IdentityResult identityResult = await _userManager.UpdateAsync(user);
+
+            if (!identityResult.Succeeded)
+            {
+                throw new InvalidOperationException(
+                    string.Format(ResponseError.FailedToUpdate, identityResult.Errors.Select(e => e.Description)));
+            }
         }
     }
 }
