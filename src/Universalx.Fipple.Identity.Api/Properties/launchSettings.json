@@ -2,15 +2,19 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "https://localhost:4445/Fipple.Identity",
+      "sslPort": 4445
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:64437",
-      "sslPort": 0
+      "sslPort": 4445
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
-      "commandName": "IISExpress",
+      "commandName": "IIS",
       "launchUrl": "http://localhost:64437",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

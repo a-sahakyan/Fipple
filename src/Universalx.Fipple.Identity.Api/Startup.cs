@@ -42,6 +42,7 @@ namespace Universalx.Fipple.Identity.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthorization();

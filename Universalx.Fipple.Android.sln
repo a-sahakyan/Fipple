@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Android", "src\Universalx.Fipple.Android\Universalx.Fipple.Android.csproj", "{FAA5A0E6-0091-45A3-82FD-6335F5852F7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Mobile.Shared", "src\Universalx.Fipple.Mobile.Shared\Universalx.Fipple.Mobile.Shared.csproj", "{DDC32024-6DC4-4269-BC1E-85C7DBA68146}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universalx.Fipple.Mobile.Models", "src\Universalx.Fipple.Mobile.Models\Universalx.Fipple.Mobile.Models.csproj", "{5BCDCD94-22DF-463E-9B08-05BDA4A27291}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{FAA5A0E6-0091-45A3-82FD-6335F5852F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAA5A0E6-0091-45A3-82FD-6335F5852F7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FAA5A0E6-0091-45A3-82FD-6335F5852F7D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DDC32024-6DC4-4269-BC1E-85C7DBA68146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC32024-6DC4-4269-BC1E-85C7DBA68146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC32024-6DC4-4269-BC1E-85C7DBA68146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC32024-6DC4-4269-BC1E-85C7DBA68146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BCDCD94-22DF-463E-9B08-05BDA4A27291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BCDCD94-22DF-463E-9B08-05BDA4A27291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BCDCD94-22DF-463E-9B08-05BDA4A27291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BCDCD94-22DF-463E-9B08-05BDA4A27291}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
