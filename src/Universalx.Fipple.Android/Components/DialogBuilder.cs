@@ -3,11 +3,14 @@ using Android.Content.Res;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+using static Android.Widget.LinearLayout;
 
 namespace Universalx.Fipple.Android.Components
 {
     public class DialogBuilder
     {
+        private const int Padding = 30;
+
         private BaseActivity activity;
         private LinearLayout linearLayout;
         private AlertDialog alertDialog;
@@ -15,46 +18,54 @@ namespace Universalx.Fipple.Android.Components
         public DialogBuilder(BaseActivity activity)
         {
             this.activity = activity;
+            linearLayout = new LinearLayout(activity);
         }
 
         public void CreateDialog(string message)
         {
-            int padding = 30;
-            LinearLayout linearLayout = new LinearLayout(activity);
-            linearLayout.Orientation = global::Android.Widget.Orientation.Horizontal;
+            ConfigureLinearLayout();
 
-            linearLayout.SetPadding(padding, padding, padding, padding);
+            ProgressBar progressBar = CreateProgressBar();
+            TextView textView = CreateTextView(message);
+
+            linearLayout.AddView(progressBar);
+            linearLayout.AddView(textView);
+        }
+
+        private void ConfigureLinearLayout()
+        {
+            linearLayout.Orientation = global::Android.Widget.Orientation.Horizontal;
+            linearLayout.SetPadding(Padding, Padding, Padding, Padding);
             linearLayout.SetGravity(GravityFlags.Center);
 
-            LinearLayout.LayoutParams linearLayoutParam = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WrapContent,
-                    LinearLayout.LayoutParams.WrapContent);
+            LayoutParams linearLayoutParam = new LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
 
             linearLayoutParam.Gravity = GravityFlags.Center;
             linearLayout.LayoutParameters = linearLayoutParam;
+        }
 
+        private ProgressBar CreateProgressBar()
+        {
             ProgressBar progressBar = new ProgressBar(activity);
             progressBar.Indeterminate = true;
-            progressBar.SetPadding(0, 0, padding, 0);
-            progressBar.LayoutParameters = linearLayoutParam;
+            progressBar.SetPadding(0, 0, Padding, 0);
+            progressBar.LayoutParameters = linearLayout.LayoutParameters;
 
-            linearLayoutParam = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
-            linearLayoutParam.Gravity = GravityFlags.Center;
+            return progressBar;
+        }
 
+        private TextView CreateTextView(string message)
+        {
             TextView textView = new TextView(activity);
             textView.Text = message;
             textView.SetTextColor(ColorStateList.ValueOf(Color.Black));
             textView.TextSize = 20;
-            textView.LayoutParameters = linearLayoutParam;
+            textView.LayoutParameters = linearLayout.LayoutParameters;
 
-            linearLayout.AddView(progressBar);
-            linearLayout.AddView(textView);
-
-            this.linearLayout = linearLayout;
+            return textView;
         }
 
-        public AlertDialog DisplayDialog()
+        public void DisplayDialog()
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.SetCancelable(true);
@@ -62,8 +73,6 @@ namespace Universalx.Fipple.Android.Components
 
             alertDialog = builder.Create();
             alertDialog.Show();
-
-            return alertDialog;
         }
 
         public void DismissDialog()

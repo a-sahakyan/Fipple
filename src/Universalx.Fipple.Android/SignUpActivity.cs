@@ -18,7 +18,7 @@ namespace Universalx.Fipple.Android
     public class SignUpActivity : BaseActivity
     {
         private RestClient restClient;
-        private DialogBuilder dialogBuilder;
+        private DialogBuilder signUpDialogBuilder;
 
         protected override int LayoutResourceId => Resource.Layout.activity_signUp;
 
@@ -27,7 +27,7 @@ namespace Universalx.Fipple.Android
             base.OnCreate(savedInstanceState);
 
             restClient = new RestClient(IdentityBaseAddress);
-            dialogBuilder = new DialogBuilder(this);
+            signUpDialogBuilder = new DialogBuilder(this);
 
             AddEventListeners();
         }
@@ -54,7 +54,7 @@ namespace Universalx.Fipple.Android
 
             await restClient.PostAsync<RequestUserModel, object>("/Account/CreateUser", userModel);
 
-            dialogBuilder.DismissDialog();
+            signUpDialogBuilder.DismissDialog();
             StartEmailVerificationActivity();
         }
 
@@ -131,8 +131,8 @@ namespace Universalx.Fipple.Android
 
         private void SetProgressDialog()
         {
-            dialogBuilder.CreateDialog("Signing Up...");
-            dialogBuilder.DisplayDialog();
+            signUpDialogBuilder.CreateDialog("Signing Up...");
+            signUpDialogBuilder.DisplayDialog();
         }
 
         private void StartEmailVerificationActivity()
