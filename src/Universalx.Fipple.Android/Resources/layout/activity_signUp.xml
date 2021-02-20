@@ -110,7 +110,7 @@
             android:background="?android:colorBackground"
             android:textColor="#F85F6A"
             android:textAllCaps="false"
-            android:id="@+id/btnSignInFromSignUp"
+            android:id="@+id/btnSignIn"
             android:textStyle="bold"
             android:fontFamily="sans-serif"
             style="?android:attr/borderlessButtonStyle"/>

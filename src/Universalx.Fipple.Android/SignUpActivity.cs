@@ -1,8 +1,5 @@
 ﻿using Android.App;
-using Android.Content.Res;
-using Android.Graphics;
 using Android.OS;
-using Android.Views;
 using Android.Widget;
 using System;
 using System.Text.RegularExpressions;
@@ -34,15 +31,24 @@ namespace Universalx.Fipple.Android
 
         private void AddEventListeners()
         {
+            Button btnSignIn = FindViewById<Button>(Resource.Id.btnSignIn);
+            btnSignIn.Click += OnSignInBtnClick;
+
             Button btnContinue = FindViewById<Button>(Resource.Id.btnContinue);
             btnContinue.Click += async (sender, e) => await OnContinueBtnClick(sender, e);
+        }
+
+        private void OnSignInBtnClick(object sender, EventArgs e)
+        {
+            StartActivity(typeof(MainActivity));
         }
 
         private async Task OnContinueBtnClick(object sender, EventArgs e)
         {
             if (ValidationFails()) return;
 
-            SetProgressDialog();
+            signUpDialogBuilder.CreateDialog("Signing Up...");
+            signUpDialogBuilder.DisplayDialog();
 
             var userModel = new RequestUserModel
             {
@@ -53,8 +59,8 @@ namespace Universalx.Fipple.Android
             };
 
             await restClient.PostAsync<RequestUserModel, object>("/Account/CreateUser", userModel);
-
             signUpDialogBuilder.DismissDialog();
+
             StartEmailVerificationActivity();
         }
 
@@ -127,12 +133,6 @@ namespace Universalx.Fipple.Android
             }
 
             return validationFails;
-        }
-
-        private void SetProgressDialog()
-        {
-            signUpDialogBuilder.CreateDialog("Signing Up...");
-            signUpDialogBuilder.DisplayDialog();
         }
 
         private void StartEmailVerificationActivity()
