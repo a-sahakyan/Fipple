@@ -61,6 +61,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseActivity.cs" />
+    <Compile Include="Components\DialogBuilder.cs" />
+    <Compile Include="EmailVerifyActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,6 +121,21 @@
     <AndroidResource Include="Resources\layout\activity_signUp.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_emailVerify.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Universalx.Fipple.Mobile.Models\Universalx.Fipple.Mobile.Models.csproj">
+      <Project>{5bcdcd94-22df-463e-9b08-05bda4a27291}</Project>
+      <Name>Universalx.Fipple.Mobile.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Universalx.Fipple.Mobile.Shared\Universalx.Fipple.Mobile.Shared.csproj">
+      <Project>{ddc32024-6dc4-4269-bc1e-85c7dba68146}</Project>
+      <Name>Universalx.Fipple.Mobile.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
