@@ -1,11 +1,9 @@
 ﻿using Android.App;
-using Android.Content;
-using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Widget;
 using System;
+using Xamarin.Essentials;
 
 namespace Universalx.Fipple.Android
 {
@@ -15,22 +13,14 @@ namespace Universalx.Fipple.Android
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-
+            Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
 
             Button btnSignUp = FindViewById<Button>(Resource.Id.btnSignUp);
-            btnSignUp.Click += GoToSignUpActivity;
+            btnSignUp.Click += StartSignUpActivity;
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] global::Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-
-        public void GoToSignUpActivity(object sender, EventArgs e)
+        public void StartSignUpActivity(object sender, EventArgs e)
         {
             StartActivity(typeof(SignUpActivity));
         }

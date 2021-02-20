@@ -1,26 +1,50 @@
 ﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.App;
+using Android.Widget;
+using System;
+using System.Threading.Tasks;
+using Universalx.Fipple.Mobile.Models.Request;
+using Universalx.Fipple.Mobile.Shared.Helpers;
+using Xamarin.Essentials;
 
 namespace Universalx.Fipple.Android
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
     public class EmailVerifyActivity : AppCompatActivity
     {
+        private RestClient _restClient;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-
+            Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity_emailVerify);
+
+            _restClient = new RestClient(Resources.GetResourceName(Resource.String.identity_base_address));
+
+            Button btnRegister = FindViewById<Button>(Resource.Id.btnRegister);
+            btnRegister.Click += async (sender, e) => await ConfirmAccountAsync(sender, e);
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] global::Android.Content.PM.Permission[] grantResults)
+        private async Task ConfirmAccountAsync(object sender, EventArgs e)
         {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            if (AgreedToTermsAndPrivacy())
+            {
+                RequestConfirmAccountModel confirmAccount = new RequestConfirmAccountModel()
+                {
+                    Email = Intent.GetStringExtra("Email"),
+                    VerificationCode = FindViewById<TextView>(Resource.Id.inpVerificationCode).Text
+                };
 
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+                await _restClient.PostAsync<RequestConfirmAccountModel, object>("/Account/ConfirmAccountAsync", confirmAccount);
+            }
+        }
+
+        private bool AgreedToTermsAndPrivacy()
+        {
+            CheckBox checkBoxTermsAndPrivacy = FindViewById<CheckBox>(Resource.Id.checkBoxTermsAndPrivacy);
+            return checkBoxTermsAndPrivacy.Checked;
         }
     }
 }
