@@ -1,9 +1,13 @@
 ﻿using Android.App;
+using Android.Content.Res;
+using Android.Graphics;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Universalx.Fipple.Android.Components;
 using Universalx.Fipple.Mobile.Models.Request;
 using Universalx.Fipple.Mobile.Shared.Constants;
 using Universalx.Fipple.Mobile.Shared.Helpers;
@@ -14,58 +18,53 @@ namespace Universalx.Fipple.Android
     public class SignUpActivity : BaseActivity
     {
         private RestClient restClient;
-        private EditText inpFirstName;
-        private EditText inpLastName;
-        private EditText inpEmail;
-        private EditText inpPassword;
+        private DialogBuilder dialogBuilder;
+
+        protected override int LayoutResourceId => Resource.Layout.activity_signUp;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            AddEventListeners();
-        }
 
-        protected override int GetLayoutResourceId()
-        {
-            return Resource.Layout.activity_signUp;
+            restClient = new RestClient(IdentityBaseAddress);
+            dialogBuilder = new DialogBuilder(this);
+
+            AddEventListeners();
         }
 
         private void AddEventListeners()
         {
             Button btnContinue = FindViewById<Button>(Resource.Id.btnContinue);
-            btnContinue.Click += Initalize;
-            btnContinue.Click += async (sender, e) => await CreateUserAsync(sender, e);
+            btnContinue.Click += async (sender, e) => await OnContinueBtnClick(sender, e);
         }
 
-        private void Initalize(object sender, EventArgs e)
-        {
-            restClient = new RestClient(IdentityBaseAddress);
-            inpFirstName = FindViewById<EditText>(Resource.Id.inpFirstName);
-            inpLastName = FindViewById<EditText>(Resource.Id.inpLastName);
-            inpEmail = FindViewById<EditText>(Resource.Id.inpEmail);
-            inpPassword = FindViewById<EditText>(Resource.Id.inpPassword);
-        }
-
-        private async Task CreateUserAsync(object sender, EventArgs e)
+        private async Task OnContinueBtnClick(object sender, EventArgs e)
         {
             if (ValidationFails()) return;
 
+            SetProgressDialog();
+
             var userModel = new RequestUserModel
             {
-                FirstName = inpFirstName.Text,
-                LastName = inpLastName.Text,
-                Email = inpEmail.Text,
-                Password = inpPassword.Text
+                FirstName = FindViewById<EditText>(Resource.Id.inpFirstName).Text,
+                LastName = FindViewById<EditText>(Resource.Id.inpLastName).Text,
+                Email = FindViewById<EditText>(Resource.Id.inpEmail).Text,
+                Password = FindViewById<EditText>(Resource.Id.inpPassword).Text
             };
 
             await restClient.PostAsync<RequestUserModel, object>("/Account/CreateUser", userModel);
 
+            dialogBuilder.DismissDialog();
             StartEmailVerificationActivity();
         }
 
         private bool ValidationFails()
         {
             bool validationFails = false;
+            EditText inpFirstName = FindViewById<EditText>(Resource.Id.inpFirstName);
+            EditText inpLastName = FindViewById<EditText>(Resource.Id.inpLastName);
+            EditText inpEmail = FindViewById<EditText>(Resource.Id.inpEmail);
+            EditText inpPassword = FindViewById<EditText>(Resource.Id.inpPassword);
 
             if (string.IsNullOrWhiteSpace(inpFirstName.Text))
             {
@@ -85,9 +84,9 @@ namespace Universalx.Fipple.Android
                 validationFails = true;
             }
 
-            if (string.IsNullOrWhiteSpace(inpFirstName.Text))
+            if (string.IsNullOrWhiteSpace(inpLastName.Text))
             {
-                ValidateInput(inpFirstName, "Last Name is required");
+                ValidateInput(inpLastName, "Last Name is required");
                 validationFails = true;
             }
 
@@ -121,13 +120,19 @@ namespace Universalx.Fipple.Android
                 validationFails = true;
             }
 
-            if (!Regex.IsMatch(inpPassword.Text, AppResource.Validation.PasswordRegexPattern))
+            if (inpPassword.Text.Length < AppResource.Validation.MinPasswordLength)
             {
-                ValidateInput(inpPassword, "Password should contain at least 1+ number/1+ lowercase/1+ uppercase");
+                ValidateInput(inpPassword, "Password is too short");
                 validationFails = true;
             }
 
             return validationFails;
+        }
+
+        private void SetProgressDialog()
+        {
+            dialogBuilder.CreateDialog("Signing Up...");
+            dialogBuilder.DisplayDialog();
         }
 
         private void StartEmailVerificationActivity()

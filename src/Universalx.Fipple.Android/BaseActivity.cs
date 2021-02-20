@@ -7,6 +7,8 @@ namespace Universalx.Fipple.Android
 {
     public abstract class BaseActivity : AppCompatActivity
     {
+        protected abstract int LayoutResourceId { get; }
+
         protected string IdentityBaseAddress => Resources.GetString(Resource.String.identity_base_address);
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -14,10 +16,8 @@ namespace Universalx.Fipple.Android
             base.OnCreate(savedInstanceState);
             Platform.Init(this, savedInstanceState);
 
-            SetContentView(GetLayoutResourceId());
+            SetContentView(LayoutResourceId);
         }
-
-        protected abstract int GetLayoutResourceId();
 
         protected virtual void ValidateInput(TextView textView, string error) 
         {
