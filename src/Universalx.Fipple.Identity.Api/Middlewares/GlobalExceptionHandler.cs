@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using System.Net;
 using System.Net.Mime;
 using System.Threading.Tasks;
+using Universalx.Fipple.Identity.Constants;
 using Universalx.Fipple.Identity.DTO;
 using Universalx.Fipple.Identity.DTO.Exception;
 
@@ -48,7 +50,16 @@ namespace Universalx.Fipple.Identity.Api.Middlewares
 
         private static async Task AddApplicationError(this HttpContext context, IExceptionHandlerFeature contenxtFeautre)
         {
-            await context.Response.WriteAsJsonAsync(contenxtFeautre.Error);
+            //TODO: log application errors
+            await context.Response.WriteAsJsonAsync(new ApiResponse
+            {
+                Status = new Status
+                {
+                    Failed = true,
+                    ErrorMessage = ResponseError.UnknownError,
+                    StatusCode = HttpStatusCode.InternalServerError
+                },
+            });
         }
     }
 }

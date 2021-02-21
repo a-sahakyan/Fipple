@@ -14,6 +14,7 @@ namespace Universalx.Fipple.Android.Components
         private BaseActivity activity;
         private LinearLayout linearLayout;
         private AlertDialog alertDialog;
+        private AlertDialog.Builder builder;
 
         public DialogBuilder(BaseActivity activity)
         {
@@ -30,6 +31,11 @@ namespace Universalx.Fipple.Android.Components
 
             linearLayout.AddView(progressBar);
             linearLayout.AddView(textView);
+
+            builder = new AlertDialog.Builder(activity);
+            builder.SetCancelable(true);
+            builder.SetView(linearLayout);
+            alertDialog = builder.Create();
         }
 
         private void ConfigureLinearLayout()
@@ -67,15 +73,6 @@ namespace Universalx.Fipple.Android.Components
 
         public void DisplayDialog()
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            builder.SetCancelable(true);
-
-            if(linearLayout.Parent != null)
-            {
-                builder.SetView(linearLayout);
-            }
-
-            alertDialog = builder.Create();
             alertDialog.Show();
         }
 

@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using Universalx.Fipple.Mobile.Models;
 
 namespace Universalx.Fipple.Mobile.Shared.Helpers
 {
@@ -23,7 +24,7 @@ namespace Universalx.Fipple.Mobile.Shared.Helpers
             HttpClient = new HttpClient(httpClientHandler);
         }
 
-        public async Task<TResponse> PostAsync<TRequest, TResponse>(string url, TRequest requestModel)
+        public async Task<ApiResponse<TResponse>> PostAsync<TRequest, TResponse>(string url, TRequest requestModel)
         {
             if (string.IsNullOrWhiteSpace(url))
             {
@@ -46,12 +47,7 @@ namespace Universalx.Fipple.Mobile.Shared.Helpers
             HttpResponseMessage responseMessage = await HttpClient.SendAsync(message);
             string responseContent = await responseMessage.Content.ReadAsStringAsync();
 
-            if (!responseMessage.IsSuccessStatusCode)
-            {
-                throw new Exception($"{responseMessage.StatusCode} {responseContent}");
-            }
-
-            TResponse response = JsonConvert.DeserializeObject<TResponse>(responseContent);
+            ApiResponse<TResponse> response = JsonConvert.DeserializeObject<ApiResponse<TResponse>>(responseContent);
             return response;
         }
     }

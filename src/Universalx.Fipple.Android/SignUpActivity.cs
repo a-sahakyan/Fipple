@@ -5,6 +5,7 @@ using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Universalx.Fipple.Android.Components;
+using Universalx.Fipple.Mobile.Models;
 using Universalx.Fipple.Mobile.Models.Request;
 using Universalx.Fipple.Mobile.Shared.Constants;
 using Universalx.Fipple.Mobile.Shared.Helpers;
@@ -25,7 +26,7 @@ namespace Universalx.Fipple.Android
 
             restClient = new RestClient(IdentityBaseAddress);
             signUpDialogBuilder = new DialogBuilder(this);
-
+            signUpDialogBuilder.CreateDialog("Signing up...");
 
             AddEventListeners();
         }
@@ -48,7 +49,6 @@ namespace Universalx.Fipple.Android
         {
             if (ValidationFails()) return;
 
-            signUpDialogBuilder.CreateDialog("Signing Up...");
             signUpDialogBuilder.DisplayDialog();
 
             var userModel = new RequestUserModel
@@ -59,17 +59,16 @@ namespace Universalx.Fipple.Android
                 Password = FindViewById<EditText>(Resource.Id.inpPassword).Text
             };
 
-            try
-            {
-                await restClient.PostAsync<RequestUserModel, object>("/Account/CreateUser", userModel);
-
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
+            ApiResponse<object> response = await restClient.PostAsync<RequestUserModel, object>("/Account/CreateUser", userModel);
             signUpDialogBuilder.DismissDialog();
+
+            if (response.Status.Failed)
+            {
+                TextView inpEmail = FindViewById<TextView>(Resource.Id.inpEmail);
+                ValidateInput(inpEmail, response.Status.ErrorMessage);
+                return;
+            }
+
 
             StartEmailVerificationActivity();
         }

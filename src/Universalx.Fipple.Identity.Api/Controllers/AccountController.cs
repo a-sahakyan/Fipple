@@ -37,7 +37,7 @@ namespace Universalx.Fipple.Identity.Api.Controllers
         public async Task<IActionResult> ConfirmAccountAsync(RequestConfirmAccountDto confirmAccountDto)
         {
             await _userService.ConfirmAccountAsync(confirmAccountDto);
-            return Ok();
+            return OkResult();
         }
     }
 }

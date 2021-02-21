@@ -7,7 +7,7 @@ namespace Universalx.Fipple.Identity.Api.Controllers
     {
         protected ObjectResult OkResult(object value = null)
         {
-            return base.StatusCode((int)HttpStatusCode.OK, value);
+            return StatusCode((int)HttpStatusCode.OK, value);
         }
     }
 }
