@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Universalx.Fipple.Identity.Abstraction;
 using Universalx.Fipple.Identity.Constants;
 using Universalx.Fipple.Identity.DBMap.Entities;
+using Universalx.Fipple.Identity.DTO.Exception;
 using Universalx.Fipple.Identity.DTO.Request;
 using Universalx.Fipple.Identity.DTO.Response;
 
@@ -23,7 +25,7 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
 
             if (user is not null)
             {
-                throw new InvalidOperationException(string.Format(ResponseError.UserAlreadyExists, user.Email));
+                throw new HttpException(HttpStatusCode.BadRequest, string.Format(ResponseError.UserAlreadyExists, user.Email));
             }
 
             user = new Users
@@ -39,8 +41,7 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
 
             if (!identityResult.Succeeded)
             {
-                throw new InvalidOperationException(
-                    string.Format(ResponseError.FailedToCreate, identityResult.Errors.Select(e => e.Description)));
+                throw new InvalidOperationException(identityResult.Errors.First().Description);
             }
 
             var responseUserDto = new ResponseUserDto
@@ -62,12 +63,12 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
 
             if (user is null)
             {
-                throw new InvalidOperationException(string.Format(confirmAccountDto.Email, ResponseError.UserNotFound));
+                throw new HttpException(HttpStatusCode.BadRequest, string.Format(ResponseError.UserNotFound, confirmAccountDto.Email));
             }
 
             if (confirmAccountDto.VerificationCode != user.SecurityStamp)
             {
-                throw new InvalidOperationException(string.Format(user.SecurityStamp, ResponseError.WrongCode));
+                throw new HttpException(HttpStatusCode.BadRequest, ResponseError.WrongCode);
             }
 
             user.EmailConfirmed = true;
@@ -75,8 +76,7 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
 
             if (!identityResult.Succeeded)
             {
-                throw new InvalidOperationException(
-                    string.Format(ResponseError.FailedToUpdate, identityResult.Errors.Select(e => e.Description)));
+                throw new InvalidOperationException(identityResult.Errors.First().Description);
             }
         }
     }

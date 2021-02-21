@@ -26,6 +26,7 @@ namespace Universalx.Fipple.Android
             restClient = new RestClient(IdentityBaseAddress);
             signUpDialogBuilder = new DialogBuilder(this);
 
+
             AddEventListeners();
         }
 
@@ -58,7 +59,16 @@ namespace Universalx.Fipple.Android
                 Password = FindViewById<EditText>(Resource.Id.inpPassword).Text
             };
 
-            await restClient.PostAsync<RequestUserModel, object>("/Account/CreateUser", userModel);
+            try
+            {
+                await restClient.PostAsync<RequestUserModel, object>("/Account/CreateUser", userModel);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
             signUpDialogBuilder.DismissDialog();
 
             StartEmailVerificationActivity();

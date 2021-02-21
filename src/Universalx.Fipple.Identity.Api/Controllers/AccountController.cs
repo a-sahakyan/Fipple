@@ -9,7 +9,7 @@ namespace Universalx.Fipple.Identity.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseController
     {
         private IUserService _userService;
         private IEmailService _emailService;
@@ -19,11 +19,11 @@ namespace Universalx.Fipple.Identity.Api.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateUserAsync(RequestUserDto userDto)
-        {
+        {          
             ResponseUserDto responseUserDto = await _userService.CreateUserAsync(userDto);
             await SendVerifyAccountEmailAsync(responseUserDto);
 
-            return Ok();
+            return OkResult();
         }
 
         private async Task SendVerifyAccountEmailAsync(ResponseUserDto userDto)

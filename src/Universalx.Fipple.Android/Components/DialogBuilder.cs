@@ -69,7 +69,11 @@ namespace Universalx.Fipple.Android.Components
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.SetCancelable(true);
-            builder.SetView(linearLayout);
+
+            if(linearLayout.Parent != null)
+            {
+                builder.SetView(linearLayout);
+            }
 
             alertDialog = builder.Create();
             alertDialog.Show();

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Universalx.Fipple.Identity.Api.Helpers
@@ -7,6 +8,11 @@ namespace Universalx.Fipple.Identity.Api.Helpers
     {
         public async static Task<string> GetVerifyAccountTemplateAsync(params string[] messageData)
         {
+            if(messageData is null)
+            {
+                throw new ArgumentNullException(nameof(messageData), "Cannot be null");
+            }
+
             string template = await ReadTemplate(EmailTempalteType.VerifyAccountTemplate);
             return string.Format(template, messageData);
         }
