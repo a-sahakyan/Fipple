@@ -6,7 +6,7 @@
         {
             public const int MinNameLenght = 2;
             public const int MaxNameLenght = 50;
-            public const int MinPasswordLength = 6;
+            public const int MinPasswordLength = 8;
             public const string EmailRegexPattern = ".+\\@.+\\..+";
         }
 

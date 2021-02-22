@@ -10,11 +10,11 @@ using Universalx.Fipple.Mobile.Shared.Helpers;
 namespace Universalx.Fipple.Android
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
-    public class EmailVerifyActivity : BaseActivity
+    public class ConfirmAccountActivity : BaseActivity
     {
         private RestClient restClient;
 
-        protected override int LayoutResourceId => Resource.Layout.activity_emailVerify;
+        protected override int LayoutResourceId => Resource.Layout.activity_confirmAccount;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {

@@ -23,7 +23,7 @@ namespace Universalx.Fipple.Android
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            
             restClient = new RestClient(IdentityBaseAddress);
             signUpDialogBuilder = new DialogBuilder(this);
             signUpDialogBuilder.CreateDialog("Signing up...");
@@ -70,7 +70,7 @@ namespace Universalx.Fipple.Android
             }
 
 
-            StartEmailVerificationActivity();
+            StartConfirmAccountActivity();
         }
 
         private bool ValidationFails()
@@ -144,10 +144,10 @@ namespace Universalx.Fipple.Android
             return validationFails;
         }
 
-        private void StartEmailVerificationActivity()
+        private void StartConfirmAccountActivity()
         {
             AddEmailToIntent();
-            StartActivity(typeof(EmailVerifyActivity));
+            StartActivity(typeof(ConfirmAccountActivity));
         }
 
         private void AddEmailToIntent()
