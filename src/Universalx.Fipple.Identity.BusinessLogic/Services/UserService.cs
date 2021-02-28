@@ -79,6 +79,60 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
                 throw new InvalidOperationException(identityResult.Errors.First().Description);
             }
         }
+
+        public async Task<ResponseUserDto> GetUserByEmail(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user is null)
+            {
+                throw new HttpException(HttpStatusCode.BadRequest, string.Format(ResponseError.UserNotFound, email));
+            }
+
+            ResponseUserDto userDto = new ResponseUserDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                SecurityStamp = user.SecurityStamp
+            };
+
+            return userDto;
+        }
+
+        public async Task ConfirmVerificationCodeAsync(RequestConfirmAccountDto confirmAccountDto)
+        {
+            var user = await _userManager.FindByEmailAsync(confirmAccountDto.Email);
+
+            if (user is null)
+            {
+                throw new HttpException(HttpStatusCode.BadRequest, string.Format(ResponseError.UserNotFound, confirmAccountDto.Email));
+            }
+
+            if (confirmAccountDto.VerificationCode != user.SecurityStamp)
+            {
+                throw new HttpException(HttpStatusCode.BadRequest, ResponseError.WrongCode);
+            }
+        }
+
+        public async Task ResetPasswordAsync(RequestResetPasswordDto resetPasswordDto)
+        {
+            if (resetPasswordDto.Password != resetPasswordDto.ConfirmPassword)
+            {
+                throw new HttpException(HttpStatusCode.BadRequest, ResponseError.PasswordsNotMatch);
+            }
+
+            var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
+
+            if (user is null)
+            {
+                throw new HttpException(HttpStatusCode.BadRequest, string.Format(resetPasswordDto.Email, ResponseError.UserNotFound));
+            }
+
+            user.PasswordHash = resetPasswordDto.Password;
+            await _userManager.UpdateAsync(user);
+        }
     }
 }
 
