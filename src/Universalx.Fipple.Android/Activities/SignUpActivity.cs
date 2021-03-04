@@ -16,17 +16,16 @@ namespace Universalx.Fipple.Android
     public class SignUpActivity : BaseActivity
     {
         private RestClient restClient;
-        private DialogBuilder signUpDialogBuilder;
 
         protected override int LayoutResourceId => Resource.Layout.activity_signUp;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            
+
             restClient = new RestClient(IdentityBaseAddress);
-            signUpDialogBuilder = new DialogBuilder(this);
-            signUpDialogBuilder.CreateDialog("Signing up...");
+            //signUpDialogBuilder = new DialogBuilder(this);
+            //signUpDialogBuilder.CreateDialog("Signing up...");
 
             AddEventListeners();
         }
@@ -49,18 +48,21 @@ namespace Universalx.Fipple.Android
         {
             if (ValidationFails()) return;
 
-            signUpDialogBuilder.DisplayDialog();
-
-            var userModel = new RequestUserModel
+            ApiResponse<object> response;
+            using (var signUpDialog = new DialogBuilder(this, "Signing up..."))
             {
-                FirstName = FindViewById<EditText>(Resource.Id.inpFirstName).Text,
-                LastName = FindViewById<EditText>(Resource.Id.inpLastName).Text,
-                Email = FindViewById<EditText>(Resource.Id.inpEmail).Text,
-                Password = FindViewById<EditText>(Resource.Id.inpPassword).Text
-            };
+                signUpDialog.DisplayDialog();
 
-            ApiResponse<object> response = await restClient.PostAsync<RequestUserModel, object>("/Account/CreateUser", userModel);
-            signUpDialogBuilder.DismissDialog();
+                var userModel = new RequestUserModel
+                {
+                    FirstName = FindViewById<EditText>(Resource.Id.inpFirstName).Text,
+                    LastName = FindViewById<EditText>(Resource.Id.inpLastName).Text,
+                    Email = FindViewById<EditText>(Resource.Id.inpEmail).Text,
+                    Password = FindViewById<EditText>(Resource.Id.inpPassword).Text
+                };
+
+                response = await restClient.PostAsync<RequestUserModel, object>("/Account/CreateUser", userModel);
+            }
 
             if (response.Status.Failed)
             {
@@ -68,7 +70,6 @@ namespace Universalx.Fipple.Android
                 ValidateInput(inpEmail, response.Status.ErrorMessage);
                 return;
             }
-
 
             StartConfirmAccountActivity();
         }

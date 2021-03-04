@@ -3,11 +3,12 @@ using Android.Content.Res;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+using System;
 using static Android.Widget.LinearLayout;
 
 namespace Universalx.Fipple.Android.Components
 {
-    public class DialogBuilder
+    public class DialogBuilder : IDisposable
     {
         private const int Padding = 30;
 
@@ -16,10 +17,11 @@ namespace Universalx.Fipple.Android.Components
         private AlertDialog alertDialog;
         private AlertDialog.Builder builder;
 
-        public DialogBuilder(BaseActivity activity)
+        public DialogBuilder(BaseActivity activity, string message)
         {
             this.activity = activity;
             linearLayout = new LinearLayout(activity);
+            CreateDialog(message);
         }
 
         public void CreateDialog(string message)
@@ -76,7 +78,7 @@ namespace Universalx.Fipple.Android.Components
             alertDialog.Show();
         }
 
-        public void DismissDialog()
+        public void Dispose()
         {
             alertDialog.Dismiss();
         }

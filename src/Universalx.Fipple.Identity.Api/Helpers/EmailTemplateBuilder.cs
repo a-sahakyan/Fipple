@@ -23,7 +23,7 @@ namespace Universalx.Fipple.Identity.Api.Helpers
             {
                 throw new ArgumentNullException(nameof(messageData), "Cannot be null");
             }
-
+            
             string template = await ReadTemplate(EmailTempalteType.ConfirmResetPasswordTemplate);
             return string.Format(template, messageData);
         }
