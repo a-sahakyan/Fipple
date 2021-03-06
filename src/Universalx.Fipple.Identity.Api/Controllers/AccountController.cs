@@ -7,9 +7,7 @@ using Universalx.Fipple.Identity.DTO.Response;
 
 namespace Universalx.Fipple.Identity.Api.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]/[action]")]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseController
     {
         private IUserService _userService;
         private IEmailService _emailService;
@@ -19,25 +17,26 @@ namespace Universalx.Fipple.Identity.Api.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateUserAsync(RequestUserDto userDto)
-        {
+        {          
             ResponseUserDto responseUserDto = await _userService.CreateUserAsync(userDto);
-            await SendVerifyAccountEmailAsync(responseUserDto);
+            await SendConfirmAccountEmailAsync(responseUserDto);
 
-            return Ok();
+            return OkResult();
         }
 
-        private async Task SendVerifyAccountEmailAsync(ResponseUserDto userDto)
+        private async Task SendConfirmAccountEmailAsync(ResponseUserDto userDto)
         {
-            string verifyAccountTemplate = await EmailTemplateBuilder.GetVerifyAccountTemplateAsync(userDto.SecurityStamp);
+            string confirmAccountTemplate = await EmailTemplateBuilder.GetConfirmAccountTemplateAsync(userDto.SecurityStamp);
+
             string emailSubject = "Verify your new Fipple Account";
-            await _emailService.SendEmailAsync(emailSubject, userDto.Email, verifyAccountTemplate);
+            await _emailService.SendEmailAsync(emailSubject, userDto.Email, confirmAccountTemplate);
         }
 
         [HttpPost]
         public async Task<IActionResult> ConfirmAccountAsync(RequestConfirmAccountDto confirmAccountDto)
         {
             await _userService.ConfirmAccountAsync(confirmAccountDto);
-            return Ok();
+            return OkResult();
         }
     }
 }

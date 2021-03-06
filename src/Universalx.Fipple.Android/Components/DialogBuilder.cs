@@ -3,22 +3,25 @@ using Android.Content.Res;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+using System;
 using static Android.Widget.LinearLayout;
 
 namespace Universalx.Fipple.Android.Components
 {
-    public class DialogBuilder
+    public class DialogBuilder : IDisposable
     {
         private const int Padding = 30;
 
-        private BaseActivity activity;
-        private LinearLayout linearLayout;
+        private readonly BaseActivity activity;
+        private readonly LinearLayout linearLayout;
         private AlertDialog alertDialog;
+        private AlertDialog.Builder builder;
 
-        public DialogBuilder(BaseActivity activity)
+        public DialogBuilder(BaseActivity activity, string message)
         {
             this.activity = activity;
             linearLayout = new LinearLayout(activity);
+            CreateDialog(message);
         }
 
         public void CreateDialog(string message)
@@ -30,6 +33,11 @@ namespace Universalx.Fipple.Android.Components
 
             linearLayout.AddView(progressBar);
             linearLayout.AddView(textView);
+
+            builder = new AlertDialog.Builder(activity);
+            builder.SetCancelable(true);
+            builder.SetView(linearLayout);
+            alertDialog = builder.Create();
         }
 
         private void ConfigureLinearLayout()
@@ -67,15 +75,10 @@ namespace Universalx.Fipple.Android.Components
 
         public void DisplayDialog()
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-            builder.SetCancelable(true);
-            builder.SetView(linearLayout);
-
-            alertDialog = builder.Create();
             alertDialog.Show();
         }
 
-        public void DismissDialog()
+        public void Dispose()
         {
             alertDialog.Dismiss();
         }

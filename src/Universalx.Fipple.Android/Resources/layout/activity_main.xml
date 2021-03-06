@@ -6,13 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="horizontal">
     <LinearLayout
-        android:layout_width="256dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp">
+        android:layout_gravity="center_vertical">
         <ImageView
             android:src="@drawable/cloud"
             android:layout_width="60dp"
@@ -58,6 +57,8 @@
             android:minWidth="25px"
             android:minHeight="25px"
             android:layout_marginBottom="30dp"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginStart="-4dp"
             android:id="@+id/inpEmail"/>
         <TextView
             android:text="Password"
@@ -71,7 +72,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/inpPassword"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginStart="-4dp"/>
         <Button
             android:text="Sign In"
             android:layout_width="match_parent"
@@ -82,37 +85,39 @@
             android:textAllCaps="false"
             android:textStyle="bold"
             android:layout_marginTop="20dp"/>
+        <LinearLayout
+            android:layout_width="256dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp"
+            android:layout_marginBottom="25dp"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+            <Button
+                android:text="Forgot Password?"
+                android:layout_width="wrap_content"
+                android:layout_height="41.5dp"
+                android:textColor="#989EB1"
+                android:textAllCaps="false"
+                android:id="@+id/btnForgotPassword"
+                android:textStyle="bold"
+                android:background="?android:colorBackground"
+                android:gravity="left"
+                android:paddingLeft="5dp"
+                android:fontFamily="sans-serif"
+                style="?android:attr/borderlessButtonStyle"/>
+            <Button
+                android:text="Sign Up"
+                android:layout_width="match_parent"
+                android:layout_height="28.5dp"
+                android:gravity="right"
+                android:background="?android:colorBackground"
+                android:textColor="#F85F6A"
+                android:textAllCaps="false"
+                android:id="@+id/btnSignUp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                style="?android:attr/borderlessButtonStyle"/>
+        </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="256dp"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="25dp"
-        android:gravity="bottom"
-        android:orientation="horizontal">
-        <Button
-            android:text="Forgot Password?"
-            android:layout_width="wrap_content"
-            android:layout_height="41.5dp"
-            android:textColor="#989EB1"
-            android:textAllCaps="false"
-            android:id="@+id/btnForgotPassword"
-            android:textStyle="bold"
-            android:background="?android:colorBackground"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:fontFamily="sans-serif"
-            style="?android:attr/borderlessButtonStyle"/>
-        <Button
-            android:text="Sign Up"
-            android:layout_width="match_parent"
-            android:layout_height="28.5dp"
-            android:gravity="right"
-            android:background="?android:colorBackground"
-            android:textColor="#F85F6A"
-            android:textAllCaps="false"
-            android:id="@+id/btnSignUp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            style="?android:attr/borderlessButtonStyle"/>
-    </LinearLayout>
+
 </LinearLayout>

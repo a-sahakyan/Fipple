@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Universalx.Fipple.Identity.Api.Filters;
+using Universalx.Fipple.Identity.Api.Helpers;
+using Universalx.Fipple.Identity.Api.Middlewares;
 using Universalx.Fipple.Identity.BusinessLogic.DependencyInjection;
 using Universalx.Fipple.Identity.DBMap;
 using Universalx.Fipple.Identity.DBMap.Entities;
@@ -31,6 +34,7 @@ namespace Universalx.Fipple.Identity.Api
             services.ConfigureServices(Configuration);
             services.AddControllers(options =>
             {
+                options.Filters.Add(new ApiResponseResultFilter());
                 options.SuppressAsyncSuffixInActionNames = true;
             });
         }
@@ -41,6 +45,8 @@ namespace Universalx.Fipple.Identity.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.ConfigureExceptionHandler();
 
             app.UseHttpsRedirection();
             app.UseRouting();

@@ -1,13 +1,30 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Universalx.Fipple.Identity.Api.Helpers
 {
     public static class EmailTemplateBuilder
     {
-        public async static Task<string> GetVerifyAccountTemplateAsync(params string[] messageData)
+        public static async Task<string> GetConfirmAccountTemplateAsync(params string[] messageData)
         {
-            string template = await ReadTemplate(EmailTempalteType.VerifyAccountTemplate);
+            if (messageData is null)
+            {
+                throw new ArgumentNullException(nameof(messageData), "Cannot be null");
+            }
+
+            string template = await ReadTemplate(EmailTempalteType.ConfirmAccountTemplate);
+            return string.Format(template, messageData);
+        }
+
+        public static async Task<string> GetConfirmResetPasswordTemplateAsync(params string[] messageData)
+        {
+            if (messageData is null)
+            {
+                throw new ArgumentNullException(nameof(messageData), "Cannot be null");
+            }
+            
+            string template = await ReadTemplate(EmailTempalteType.ConfirmResetPasswordTemplate);
             return string.Format(template, messageData);
         }
 
@@ -21,6 +38,7 @@ namespace Universalx.Fipple.Identity.Api.Helpers
 
     public enum EmailTempalteType
     {
-        VerifyAccountTemplate = 1
+        ConfirmAccountTemplate = 1,
+        ConfirmResetPasswordTemplate = 2
     }
 }

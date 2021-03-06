@@ -8,12 +8,12 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
     <LinearLayout
-    android:layout_width="280dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
     android:orientation="vertical">
         <TextView
-            android:text="Verify email address"
+            android:text="We just sent you a verification code"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,17 +21,16 @@
             android:minHeight="25px"
             android:id="@+id/txtVerify"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"/>
+            android:layout_marginTop="20dp"/>
         <TextView
-            android:text="To verify your email, we've sent a One Time Password (OTP) to some@gmail.com"
+            android:text="We just sent a verification code to your email. If you don't see our email in your inbox, check your spam folder."
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txtVerifyDesc"
             android:layout_marginTop="10dp"/>
         <TextView
-            android:text="Verification code"
+            android:text="Verification Code"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +43,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/inpVerificationCode"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="-4dp"
+            android:layout_marginStart="-4dp"/>
         <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"

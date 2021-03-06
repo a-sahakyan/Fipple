@@ -3,6 +3,8 @@ using Android.OS;
 using Android.Widget;
 using System;
 using System.Threading.Tasks;
+using Universalx.Fipple.Android.Validations;
+using Universalx.Fipple.Mobile.Models;
 using Universalx.Fipple.Mobile.Models.Request;
 using Universalx.Fipple.Mobile.Shared.Constants;
 using Universalx.Fipple.Mobile.Shared.Helpers;
@@ -10,16 +12,19 @@ using Universalx.Fipple.Mobile.Shared.Helpers;
 namespace Universalx.Fipple.Android
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
-    public class EmailVerifyActivity : BaseActivity
+    public class ConfirmAccountActivity : BaseActivity
     {
         private RestClient restClient;
+        private ConfirmAccountValidator confirmAccountValidator;
 
-        protected override int LayoutResourceId => Resource.Layout.activity_emailVerify;
+        protected override int LayoutResourceId => Resource.Layout.activity_confirmAccount;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
             restClient = new RestClient(IdentityBaseAddress);
+            confirmAccountValidator = new ConfirmAccountValidator(this);
 
             AddEventListeners();
         }
@@ -35,7 +40,8 @@ namespace Universalx.Fipple.Android
 
         private async Task OnRegisterBtnClick(object sender, EventArgs e)
         {
-            if (ValidationFails()) return;
+            if (!confirmAccountValidator.IsVerificationCodeValid()) return;
+            if (!confirmAccountValidator.AgreeToTermsAndPrivacy()) return;
 
             var confirmAccount = new RequestConfirmAccountModel()
             {
@@ -43,7 +49,15 @@ namespace Universalx.Fipple.Android
                 VerificationCode = FindViewById<TextView>(Resource.Id.inpVerificationCode).Text
             };
 
-            await restClient.PostAsync<RequestConfirmAccountModel, object>("/Account/ConfirmAccountAsync", confirmAccount);
+            ApiResponse<object> apiResponse = await restClient.PostAsync<RequestConfirmAccountModel, object>("/Account/ConfirmAccount", confirmAccount);
+
+            if (apiResponse.Status.Failed)
+            {
+                confirmAccountValidator.RaiseError(Resource.Id.inpVerificationCode, apiResponse.Status.ErrorMessage);
+                return;
+            }
+
+            //TODO: start activity
         }
 
         private void OnTermsAndPrivacyCheckBoxChanged(object sender, EventArgs e)
@@ -60,31 +74,6 @@ namespace Universalx.Fipple.Android
 
             btnRegister.Clickable = false;
             btnRegister.Alpha = AppResource.Opacity.HalfVisible;
-        }
-
-        private bool ValidationFails()
-        {
-            bool validationFails = false;
-            TextView inpVerificationCode = FindViewById<EditText>(Resource.Id.inpVerificationCode);
-
-            if (string.IsNullOrWhiteSpace(inpVerificationCode.Text))
-            {
-                ValidateInput(inpVerificationCode, "Verification Code is required");
-                validationFails = true;
-            }
-
-            if (DoesNotAgreedToTermsAndPrivacy())
-            {
-                validationFails = true;
-            }
-
-            return validationFails;
-        }
-
-        private bool DoesNotAgreedToTermsAndPrivacy()
-        {
-            CheckBox checkBoxTermsAndPrivacy = FindViewById<CheckBox>(Resource.Id.checkBoxTermsAndPrivacy);
-            return checkBoxTermsAndPrivacy.Checked;
         }
     }
 }
