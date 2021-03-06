@@ -16,13 +16,13 @@ namespace Universalx.Fipple.Android.Validations
 
             if (string.IsNullOrWhiteSpace(inpNewPassword.Text))
             {
-                Validate(inpNewPassword, "Password is required");
+                RaiseError(inpNewPassword, "Password is required");
                 return false;
             }
 
             if (inpNewPassword.Text.Length < AppResource.Validation.MinPasswordLength)
             {
-                Validate(inpNewPassword, "Password is too short");
+                RaiseError(inpNewPassword, "Password is too short");
                 return false;
             }
 
@@ -35,7 +35,7 @@ namespace Universalx.Fipple.Android.Validations
 
             if (string.IsNullOrWhiteSpace(inpConfirmPassword.Text))
             {
-                Validate(inpConfirmPassword, "Confirmation Password is required");
+                RaiseError(inpConfirmPassword, "Confirmation Password is required");
                 return false;
             }
 
@@ -43,7 +43,7 @@ namespace Universalx.Fipple.Android.Validations
 
             if (!inpNewPassword.Text.Equals(inpConfirmPassword.Text))
             {
-                Validate(inpConfirmPassword, "Password and Confirmation Password should be same");
+                RaiseError(inpConfirmPassword, "Password and Confirmation Password should be same");
                 return false;
             }
 

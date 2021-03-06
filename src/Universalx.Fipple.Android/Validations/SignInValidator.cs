@@ -12,7 +12,7 @@ namespace Universalx.Fipple.Android.Validations
 
             if (string.IsNullOrWhiteSpace(inpEmail.Text))
             {
-                Validate(inpEmail, "Email is required");
+                RaiseError(inpEmail, "Email is required");
                 return false;
             }
 
@@ -25,7 +25,7 @@ namespace Universalx.Fipple.Android.Validations
 
             if (string.IsNullOrWhiteSpace(inpPassword.Text))
             {
-                Validate(inpPassword, "Password is required");
+                RaiseError(inpPassword, "Password is required");
                 return false;
             }
 

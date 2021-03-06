@@ -15,7 +15,7 @@ namespace Universalx.Fipple.Android.Validations
 
             if (string.IsNullOrWhiteSpace(inpVerificationCode.Text))
             {
-                Validate(inpVerificationCode, "Verification Code is required");
+                RaiseError(inpVerificationCode, "Verification Code is required");
                 return false;
             }
 

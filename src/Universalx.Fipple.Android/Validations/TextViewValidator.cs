@@ -14,10 +14,10 @@ namespace Universalx.Fipple.Android.Validations
         public virtual void RaiseError(int resouceId, string errorMsg)
         {
             TextView textView = Activity.FindViewById<TextView>(resouceId);
-            Validate(textView, errorMsg);
+            RaiseError(textView, errorMsg);
         }
 
-        protected virtual void Validate(TextView textView, string errorMsg)
+        protected virtual void RaiseError(TextView textView, string errorMsg)
         {
             textView.RequestFocus();
             textView.Error = errorMsg;
