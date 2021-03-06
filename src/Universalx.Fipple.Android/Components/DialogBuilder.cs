@@ -12,8 +12,8 @@ namespace Universalx.Fipple.Android.Components
     {
         private const int Padding = 30;
 
-        private BaseActivity activity;
-        private LinearLayout linearLayout;
+        private readonly BaseActivity activity;
+        private readonly LinearLayout linearLayout;
         private AlertDialog alertDialog;
         private AlertDialog.Builder builder;
 

@@ -118,11 +118,6 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
 
         public async Task ResetPasswordAsync(RequestResetPasswordDto resetPasswordDto)
         {
-            if (resetPasswordDto.Password != resetPasswordDto.ConfirmPassword)
-            {
-                throw new HttpException(HttpStatusCode.BadRequest, ResponseError.PasswordsNotMatch);
-            }
-
             var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
 
             if (user is null)
