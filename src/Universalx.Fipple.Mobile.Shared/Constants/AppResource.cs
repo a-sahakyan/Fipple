@@ -15,5 +15,11 @@
             public const float HalfVisible = 0.5f;
             public const float FullVisible = 1f;
         }
+
+        public class DipDefault
+        {
+            public const float Radius = 5f;
+            public const float StrokeWidth = 2f;
+        }
     }
 }

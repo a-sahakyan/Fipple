@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using Universalx.Fipple.Mobile.Shared.Constants;
 
-namespace Universalx.Fipple.Android.Validations
+namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public class SignUpValidator : TextViewValidator
     {

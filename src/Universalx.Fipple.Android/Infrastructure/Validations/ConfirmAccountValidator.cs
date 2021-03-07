@@ -1,6 +1,6 @@
 ﻿using Android.Widget;
 
-namespace Universalx.Fipple.Android.Validations
+namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public class ConfirmAccountValidator : TextViewValidator
     {

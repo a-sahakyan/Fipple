@@ -1,7 +1,7 @@
 ﻿using Android.Widget;
 using Universalx.Fipple.Android.Activities;
 
-namespace Universalx.Fipple.Android.Validations
+namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public class ForgotPasswordVerificationValidator : TextViewValidator
     {

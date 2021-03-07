@@ -6,7 +6,7 @@ using Android.Widget;
 using System;
 using static Android.Widget.LinearLayout;
 
-namespace Universalx.Fipple.Android.Components
+namespace Universalx.Fipple.Android.Infrastructure.Components
 {
     public class DialogBuilder : IDisposable
     {

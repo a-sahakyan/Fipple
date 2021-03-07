@@ -2,7 +2,7 @@
 using Universalx.Fipple.Android.Activities;
 using Universalx.Fipple.Mobile.Shared.Constants;
 
-namespace Universalx.Fipple.Android.Validations
+namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public class ResetPasswordValidator : TextViewValidator
     {

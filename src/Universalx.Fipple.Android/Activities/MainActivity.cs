@@ -3,7 +3,7 @@ using Android.OS;
 using Android.Widget;
 using System;
 using Universalx.Fipple.Android.Activities;
-using Universalx.Fipple.Android.Validations;
+using Universalx.Fipple.Android.Infrastructure.Validations;
 
 namespace Universalx.Fipple.Android
 {
@@ -37,6 +37,8 @@ namespace Universalx.Fipple.Android
             if (!signInValidator.IsEmailValid()) return;
             if (!signInValidator.IsPasswordValid()) return;
 
+            //TODO: if first time login
+            StartActivity(typeof(IntroduceYourselfActivity));
         }
 
         private void OnSignUpBtnClick(object sender, EventArgs e)

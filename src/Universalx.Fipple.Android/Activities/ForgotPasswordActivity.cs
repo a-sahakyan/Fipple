@@ -5,7 +5,7 @@ using Android.Widget;
 using System;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
-using Universalx.Fipple.Android.Validations;
+using Universalx.Fipple.Android.Infrastructure.Validations;
 using Universalx.Fipple.Mobile.Models;
 using Universalx.Fipple.Mobile.Shared.Helpers;
 

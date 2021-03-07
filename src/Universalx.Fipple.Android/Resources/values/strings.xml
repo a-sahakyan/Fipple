@@ -2,4 +2,9 @@
     <string name="app_name">Fipple</string>
     <string name="action_settings">Settings</string>
 	<string name="identity_base_address">https://192.168.0.106:4445/Fipple.Identity/api</string>
+	<string-array name="match_preference_array">
+		<item>Men</item>
+		<item>Women</item>
+		<item>Both</item>
+	</string-array>
 </resources>
