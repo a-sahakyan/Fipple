@@ -2,17 +2,16 @@
 using Android.Util;
 using System;
 
-namespace Universalx.Fipple.Android.Infrastructure.Helpers
+namespace Universalx.Fipple.Android.Helpers
 {
     public static class Screen
     {
         public static int DipToAbsolutePixel(ContextWrapper contextWrapper, float dp)
         {
             DisplayMetrics displayMetrics = contextWrapper.Resources.DisplayMetrics;
-            float strokeWidthPx = TypedValue.ApplyDimension(ComplexUnitType.Dip, dp, displayMetrics);
-            int widthPx = (int)Math.Round(strokeWidthPx, 0);
+            int px = (int)Math.Round(TypedValue.ApplyDimension(ComplexUnitType.Dip, dp, displayMetrics), 0);
 
-            return widthPx;
+            return px;
         }
     }
 }

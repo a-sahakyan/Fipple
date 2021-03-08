@@ -3,8 +3,8 @@ using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Widget;
+using Universalx.Fipple.Android.Helpers;
 using Universalx.Fipple.Android.Infrastructure.Components;
-using Universalx.Fipple.Android.Infrastructure.Helpers;
 using Universalx.Fipple.Mobile.Shared.Constants;
 
 namespace Universalx.Fipple.Android.Activities
@@ -33,20 +33,25 @@ namespace Universalx.Fipple.Android.Activities
 
         private void OnMatchPreferenceSpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            int matchPreferenceItem = 0;
+            int chooseMatchPreferenceItem = 0;
 
-            if (e.Position != matchPreferenceItem)
+            if (e.Position != chooseMatchPreferenceItem)
             {
-                GradientDrawable shape = new GradientDrawable();
-                shape.SetShape(ShapeType.Rectangle);
-                shape.SetCornerRadius(Screen.DipToAbsolutePixel(this, AppResource.DipDefault.Radius));
-                shape.SetColor(Color.White);
-                shape.SetStroke(Screen.DipToAbsolutePixel(this, AppResource.DipDefault.StrokeWidth), 
-                    GetColorStateList(Resource.Color.colorHavelockBlue));
-
                 Spinner spinner = FindViewById<Spinner>(Resource.Id.spinnerMatchPreference);
-                spinner.Background = shape;
+                spinner.Background = CreateSpinnerShape();
             }
+        }
+
+        private GradientDrawable CreateSpinnerShape()
+        {
+            GradientDrawable shape = new GradientDrawable();
+            shape.SetShape(ShapeType.Rectangle);
+            shape.SetCornerRadius(Screen.DipToAbsolutePixel(this, AppResource.DipDefault.Radius));
+            shape.SetColor(Color.White);
+            shape.SetStroke(Screen.DipToAbsolutePixel(this, AppResource.DipDefault.StrokeWidth),
+                GetColorStateList(Resource.Color.colorHavelockBlue));
+
+            return shape;
         }
     }
 }
