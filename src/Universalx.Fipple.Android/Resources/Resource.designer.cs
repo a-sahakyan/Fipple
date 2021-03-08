@@ -3533,7 +3533,7 @@ namespace Universalx.Fipple.Android
 			public const int inpConfirmPassword = 2131296350;
 			
 			// aapt resource value: 0x7F09005F
-			public const int inpDay = 2131296351;
+			public const int inpDayOfBirth = 2131296351;
 			
 			// aapt resource value: 0x7F090060
 			public const int inpEmail = 2131296352;
@@ -3545,7 +3545,7 @@ namespace Universalx.Fipple.Android
 			public const int inpLastName = 2131296354;
 			
 			// aapt resource value: 0x7F090063
-			public const int inpMonth = 2131296355;
+			public const int inpMonthOfBirth = 2131296355;
 			
 			// aapt resource value: 0x7F090064
 			public const int inpNewPassword = 2131296356;
@@ -3557,7 +3557,7 @@ namespace Universalx.Fipple.Android
 			public const int inpVerificationCode = 2131296358;
 			
 			// aapt resource value: 0x7F090067
-			public const int inpYear = 2131296359;
+			public const int inpYearOfBirth = 2131296359;
 			
 			// aapt resource value: 0x7F090068
 			public const int italic = 2131296360;

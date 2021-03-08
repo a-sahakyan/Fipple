@@ -1,18 +1,20 @@
-﻿using Android.Widget;
+﻿using Android.Content;
+using Android.Widget;
 using System.Text.RegularExpressions;
+using Universalx.Fipple.Android.Helpers;
 using Universalx.Fipple.Mobile.Shared.Constants;
 
 namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public class SignUpValidator : TextViewValidator
     {
-        public SignUpValidator(SignUpActivity activity) : base(activity)
+        public SignUpValidator(Context context) : base(context)
         {
         }
 
         public bool IsFirstNameValid()
         {
-            EditText inpFirstName = Activity.FindViewById<EditText>(Resource.Id.inpFirstName);
+            EditText inpFirstName = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpFirstName);
 
             if (string.IsNullOrWhiteSpace(inpFirstName.Text))
             {
@@ -37,7 +39,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsLastNameValid()
         {
-            EditText inpLastName = Activity.FindViewById<EditText>(Resource.Id.inpLastName);
+            EditText inpLastName = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpLastName);
 
             if (string.IsNullOrWhiteSpace(inpLastName.Text))
             {
@@ -62,7 +64,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsEmailValid()
         {
-            EditText inpEmail = Activity.FindViewById<EditText>(Resource.Id.inpEmail);
+            EditText inpEmail = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpEmail);
 
             if (string.IsNullOrWhiteSpace(inpEmail.Text))
             {
@@ -81,7 +83,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsPasswordValid()
         {
-            EditText inpPassword = Activity.FindViewById<EditText>(Resource.Id.inpPassword);
+            EditText inpPassword = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpPassword);
 
             if (string.IsNullOrWhiteSpace(inpPassword.Text))
             {

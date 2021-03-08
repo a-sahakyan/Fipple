@@ -1,17 +1,18 @@
-﻿using Android.Widget;
-using Universalx.Fipple.Android.Activities;
+﻿using Android.Content;
+using Android.Widget;
+using Universalx.Fipple.Android.Helpers;
 
 namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public class ForgotPasswordValidator : TextViewValidator
     {
-        public ForgotPasswordValidator(ForgotPasswordActivity activity) : base(activity)
+        public ForgotPasswordValidator(Context context) : base(context)
         {
         }
 
         public bool IsEmailValid()
         {
-            EditText inpEmail = Activity.FindViewById<EditText>(Resource.Id.inpEmail);
+            EditText inpEmail = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpEmail);
 
             if (string.IsNullOrWhiteSpace(inpEmail.Text))
             {

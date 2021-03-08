@@ -1,19 +1,21 @@
-﻿using Android.Widget;
+﻿using Android.Content;
+using Android.Widget;
+using Universalx.Fipple.Android.Helpers;
 
 namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public abstract class TextViewValidator
     {
-        protected BaseActivity Activity { get; }
+        protected Context Context { get; }
 
-        protected TextViewValidator(BaseActivity activity)
+        protected TextViewValidator(Context context)
         {
-            Activity = activity;
+            Context = context;
         }
 
         public virtual void RaiseError(int resouceId, string errorMsg)
         {
-            TextView textView = Activity.FindViewById<TextView>(resouceId);
+            TextView textView = ApplicationManager.GetActivity(Context).FindViewById<TextView>(resouceId);
             RaiseError(textView, errorMsg);
         }
 

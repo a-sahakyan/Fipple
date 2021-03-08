@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.Res;
 using Android.Graphics;
 using Android.Views;
@@ -12,19 +13,30 @@ namespace Universalx.Fipple.Android.Infrastructure.Components
     {
         private const int Padding = 30;
 
-        private readonly BaseActivity activity;
+        private readonly Context context;
         private readonly LinearLayout linearLayout;
         private AlertDialog alertDialog;
         private AlertDialog.Builder builder;
 
-        public DialogBuilder(BaseActivity activity, string message)
+        public DialogBuilder(Context context, string message)
         {
-            this.activity = activity;
-            linearLayout = new LinearLayout(activity);
+            this.context = context;
+            linearLayout = new LinearLayout(context);
             CreateDialog(message);
         }
 
-        public void CreateDialog(string message)
+        public void DisplayDialog()
+        {
+            alertDialog.Show();
+        }
+
+        public void Dispose()
+        {
+            alertDialog.Dismiss();
+            alertDialog.Dispose();
+        }
+
+        private void CreateDialog(string message)
         {
             ConfigureLinearLayout();
 
@@ -34,7 +46,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Components
             linearLayout.AddView(progressBar);
             linearLayout.AddView(textView);
 
-            builder = new AlertDialog.Builder(activity);
+            builder = new AlertDialog.Builder(context);
             builder.SetCancelable(true);
             builder.SetView(linearLayout);
             alertDialog = builder.Create();
@@ -54,7 +66,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Components
 
         private ProgressBar CreateProgressBar()
         {
-            ProgressBar progressBar = new ProgressBar(activity);
+            ProgressBar progressBar = new ProgressBar(context);
             progressBar.Indeterminate = true;
             progressBar.SetPadding(0, 0, Padding, 0);
             progressBar.LayoutParameters = linearLayout.LayoutParameters;
@@ -64,23 +76,13 @@ namespace Universalx.Fipple.Android.Infrastructure.Components
 
         private TextView CreateTextView(string message)
         {
-            TextView textView = new TextView(activity);
+            TextView textView = new TextView(context);
             textView.Text = message;
             textView.SetTextColor(ColorStateList.ValueOf(Color.Black));
             textView.TextSize = 20;
             textView.LayoutParameters = linearLayout.LayoutParameters;
 
             return textView;
-        }
-
-        public void DisplayDialog()
-        {
-            alertDialog.Show();
-        }
-
-        public void Dispose()
-        {
-            alertDialog.Dismiss();
         }
     }
 }

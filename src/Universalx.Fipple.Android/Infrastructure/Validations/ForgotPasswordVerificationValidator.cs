@@ -1,17 +1,18 @@
-﻿using Android.Widget;
-using Universalx.Fipple.Android.Activities;
+﻿using Android.Content;
+using Android.Widget;
+using Universalx.Fipple.Android.Helpers;
 
 namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public class ForgotPasswordVerificationValidator : TextViewValidator
     {
-        public ForgotPasswordVerificationValidator(ForgotPasswordVerificationActivity activity) : base(activity)
+        public ForgotPasswordVerificationValidator(Context context) : base(context)
         {
         }
 
         public bool IsValidationCodeValid()
         {
-            TextView inpVerificationCode = Activity.FindViewById<TextView>(Resource.Id.inpVerificationCode);
+            TextView inpVerificationCode = ApplicationManager.GetActivity(Context).FindViewById<TextView>(Resource.Id.inpVerificationCode);
 
             if (string.IsNullOrWhiteSpace(inpVerificationCode.Text))
             {

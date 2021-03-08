@@ -1,16 +1,18 @@
-﻿using Android.Widget;
+﻿using Android.Content;
+using Android.Widget;
+using Universalx.Fipple.Android.Helpers;
 
 namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public class ConfirmAccountValidator : TextViewValidator
     {
-        public ConfirmAccountValidator(ConfirmAccountActivity activity) : base(activity)
+        public ConfirmAccountValidator(Context context) : base(context)
         {
         }
 
         public bool IsVerificationCodeValid()
         {
-            TextView inpVerificationCode = Activity.FindViewById<EditText>(Resource.Id.inpVerificationCode);
+            TextView inpVerificationCode = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpVerificationCode);
 
             if (string.IsNullOrWhiteSpace(inpVerificationCode.Text))
             {
@@ -23,7 +25,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool AgreeToTermsAndPrivacy()
         {
-            CheckBox checkBoxTermsAndPrivacy = Activity.FindViewById<CheckBox>(Resource.Id.checkBoxTermsAndPrivacy);
+            CheckBox checkBoxTermsAndPrivacy = ApplicationManager.GetActivity(Context).FindViewById<CheckBox>(Resource.Id.checkBoxTermsAndPrivacy);
             return checkBoxTermsAndPrivacy.Checked;
         }
     }

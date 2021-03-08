@@ -1,14 +1,16 @@
-﻿using Android.Widget;
+﻿using Android.Content;
+using Android.Widget;
+using Universalx.Fipple.Android.Helpers;
 
 namespace Universalx.Fipple.Android.Infrastructure.Validations
 {
     public class SignInValidator : TextViewValidator
     {
-        public SignInValidator(MainActivity activity) : base(activity) { }
+        public SignInValidator(Context context) : base(context) { }
 
         public bool IsEmailValid()
         {
-            EditText inpEmail = Activity.FindViewById<EditText>(Resource.Id.inpEmail);
+            EditText inpEmail = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpEmail);
 
             if (string.IsNullOrWhiteSpace(inpEmail.Text))
             {
@@ -21,7 +23,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsPasswordValid()
         {
-            EditText inpPassword = Activity.FindViewById<EditText>(Resource.Id.inpPassword);
+            EditText inpPassword = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpPassword);
 
             if (string.IsNullOrWhiteSpace(inpPassword.Text))
             {

@@ -5,6 +5,7 @@ using Android.OS;
 using Android.Widget;
 using Universalx.Fipple.Android.Helpers;
 using Universalx.Fipple.Android.Infrastructure.Components;
+using Universalx.Fipple.Android.Infrastructure.Watchers;
 using Universalx.Fipple.Mobile.Shared.Constants;
 
 namespace Universalx.Fipple.Android.Activities
@@ -19,6 +20,7 @@ namespace Universalx.Fipple.Android.Activities
             base.OnCreate(savedInstanceState);
 
             InitializeMatchPreferenceSpinner();
+            AddBirthdateWatcherListeners();
         }
 
         private void InitializeMatchPreferenceSpinner()
@@ -29,6 +31,18 @@ namespace Universalx.Fipple.Android.Activities
 
             spinner.Adapter = new SpinnerAdapter(adapter, Resource.Layout.spinner_item_selected, this);
             spinner.ItemSelected += OnMatchPreferenceSpinnerItemSelected;
+        }
+
+        private void AddBirthdateWatcherListeners()
+        {
+            TextView inpDayOfBirth = FindViewById<TextView>(Resource.Id.inpDayOfBirth);
+            inpDayOfBirth.AddTextChangedListener(new DayOfBirthWatcher(this));
+
+            TextView inpMonthOfBirth = FindViewById<TextView>(Resource.Id.inpMonthOfBirth);
+            inpMonthOfBirth.AddTextChangedListener(new MonthOfBirthWatcher(this));
+
+            TextView inpYearOfBirth = FindViewById<TextView>(Resource.Id.inpYearOfBirth);
+            inpYearOfBirth.AddTextChangedListener(new YearOfBirthWatcher(this));
         }
 
         private void OnMatchPreferenceSpinnerItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
