@@ -8,6 +8,8 @@
             public const int MaxNameLenght = 50;
             public const int MinPasswordLength = 8;
             public const string EmailRegexPattern = ".+\\@.+\\..+";
+            public const int MinBornYear = 1920;
+            public const int MaxBornYear = 2010;
         }
 
         public class Opacity

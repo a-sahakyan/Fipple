@@ -3,8 +3,10 @@ using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Widget;
+using System;
 using Universalx.Fipple.Android.Helpers;
 using Universalx.Fipple.Android.Infrastructure.Components;
+using Universalx.Fipple.Android.Infrastructure.Validations;
 using Universalx.Fipple.Android.Infrastructure.Watchers;
 using Universalx.Fipple.Mobile.Shared.Constants;
 
@@ -13,14 +15,24 @@ namespace Universalx.Fipple.Android.Activities
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = false)]
     public class IntroduceYourselfActivity : BaseActivity
     {
+        private IntroduceYourselfValidator introduceYourselfValidator;
         protected override int LayoutResourceId => Resource.Layout.activity_introduceYourself;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            introduceYourselfValidator = new IntroduceYourselfValidator(this);
 
+            AddEventListeners();
+        }
+
+        private void AddEventListeners()
+        {
             InitializeMatchPreferenceSpinner();
             AddBirthdateWatcherListeners();
+
+            Button btnContinue = FindViewById<Button>(Resource.Id.btnContinue);
+            btnContinue.Click += OnContinueBtnClick;
         }
 
         private void InitializeMatchPreferenceSpinner()
@@ -66,6 +78,14 @@ namespace Universalx.Fipple.Android.Activities
                 GetColorStateList(Resource.Color.colorHavelockBlue));
 
             return shape;
+        }
+
+        private void OnContinueBtnClick(object sender, EventArgs e)
+        {
+            if (!introduceYourselfValidator.IsBirthDateValid()) return;
+            if (!introduceYourselfValidator.IsMatchPreferenceSelected()) return;
+            if (!introduceYourselfValidator.IsGenderSelected()) return;
+
         }
     }
 }

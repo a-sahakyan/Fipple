@@ -10,7 +10,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsEmailValid()
         {
-            EditText inpEmail = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpEmail);
+            EditText inpEmail = AppManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpEmail);
 
             if (string.IsNullOrWhiteSpace(inpEmail.Text))
             {
@@ -23,7 +23,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsPasswordValid()
         {
-            EditText inpPassword = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpPassword);
+            EditText inpPassword = AppManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpPassword);
 
             if (string.IsNullOrWhiteSpace(inpPassword.Text))
             {

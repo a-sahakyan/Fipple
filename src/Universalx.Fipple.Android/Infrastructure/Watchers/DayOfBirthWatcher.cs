@@ -20,7 +20,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Watchers
         {
             if (sequence.Length() == MaxDigitsForDay)
             {
-                TextView inpMonthOfBirth = ApplicationManager.GetActivity(context).FindViewById<TextView>(Resource.Id.inpMonthOfBirth);
+                TextView inpMonthOfBirth = AppManager.GetActivity(context).FindViewById<TextView>(Resource.Id.inpMonthOfBirth);
                 inpMonthOfBirth.RequestFocus();
             }
         }
@@ -32,7 +32,5 @@ namespace Universalx.Fipple.Android.Infrastructure.Watchers
         public void OnTextChanged(ICharSequence sequence, int start, int before, int count)
         {
         }
-
-
     }
 }

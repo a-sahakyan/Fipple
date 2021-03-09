@@ -20,7 +20,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Watchers
         {
             if(sequence.Length() == MaxDigitsForMonth)
             {
-                TextView inpYearOfBirth = ApplicationManager.GetActivity(context).FindViewById<TextView>(Resource.Id.inpYearOfBirth);
+                TextView inpYearOfBirth = AppManager.GetActivity(context).FindViewById<TextView>(Resource.Id.inpYearOfBirth);
                 inpYearOfBirth.RequestFocus();
             }
         }

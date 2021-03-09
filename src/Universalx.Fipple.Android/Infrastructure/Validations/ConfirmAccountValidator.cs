@@ -12,7 +12,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsVerificationCodeValid()
         {
-            TextView inpVerificationCode = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpVerificationCode);
+            TextView inpVerificationCode = AppManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpVerificationCode);
 
             if (string.IsNullOrWhiteSpace(inpVerificationCode.Text))
             {
@@ -25,7 +25,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool AgreeToTermsAndPrivacy()
         {
-            CheckBox checkBoxTermsAndPrivacy = ApplicationManager.GetActivity(Context).FindViewById<CheckBox>(Resource.Id.checkBoxTermsAndPrivacy);
+            CheckBox checkBoxTermsAndPrivacy = AppManager.GetActivity(Context).FindViewById<CheckBox>(Resource.Id.checkBoxTermsAndPrivacy);
             return checkBoxTermsAndPrivacy.Checked;
         }
     }

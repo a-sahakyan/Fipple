@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using Android.App;
+using Android.Content;
 using Android.Widget;
 using Universalx.Fipple.Android.Helpers;
 using Universalx.Fipple.Mobile.Shared.Constants;
@@ -13,7 +14,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsPasswordValid()
         {
-            TextView inpNewPassword = ApplicationManager.GetActivity(Context).FindViewById<TextView>(Resource.Id.inpNewPassword);
+            TextView inpNewPassword = AppManager.GetActivity(Context).FindViewById<TextView>(Resource.Id.inpNewPassword);
 
             if (string.IsNullOrWhiteSpace(inpNewPassword.Text))
             {
@@ -32,7 +33,8 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsConfirmPasswordValid()
         {
-            TextView inpConfirmPassword = ApplicationManager.GetActivity(Context).FindViewById<TextView>(Resource.Id.inpConfirmPassword);
+            Activity activity = AppManager.GetActivity(Context);
+            TextView inpConfirmPassword = activity.FindViewById<TextView>(Resource.Id.inpConfirmPassword);
 
             if (string.IsNullOrWhiteSpace(inpConfirmPassword.Text))
             {
@@ -40,7 +42,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
                 return false;
             }
 
-            TextView inpNewPassword = ApplicationManager.GetActivity(Context).FindViewById<TextView>(Resource.Id.inpNewPassword);
+            TextView inpNewPassword = activity.FindViewById<TextView>(Resource.Id.inpNewPassword);
 
             if (!inpNewPassword.Text.Equals(inpConfirmPassword.Text))
             {

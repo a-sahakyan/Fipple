@@ -66,12 +66,13 @@
     <Compile Include="Activities\ForgotPasswordVerificationActivity.cs" />
     <Compile Include="Activities\IntroduceYourselfActivity.cs" />
     <Compile Include="Activities\ResetPasswordActivity.cs" />
-    <Compile Include="Helpers\ApplicationManager.cs" />
+    <Compile Include="Helpers\AppManager.cs" />
     <Compile Include="Infrastructure\Components\DialogBuilder.cs" />
     <Compile Include="Activities\ConfirmAccountActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Infrastructure\Components\SpinnerAdapter.cs" />
     <Compile Include="Helpers\Screen.cs" />
+    <Compile Include="Infrastructure\Validations\IntroduceYourselfValidator.cs" />
     <Compile Include="Infrastructure\Watchers\DayOfBirthWatcher.cs" />
     <Compile Include="Infrastructure\Watchers\MonthOfBirthWatcher.cs" />
     <Compile Include="Infrastructure\Watchers\YearOfBirthWatcher.cs" />

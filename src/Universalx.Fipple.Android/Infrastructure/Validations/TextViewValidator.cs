@@ -15,7 +15,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public virtual void RaiseError(int resouceId, string errorMsg)
         {
-            TextView textView = ApplicationManager.GetActivity(Context).FindViewById<TextView>(resouceId);
+            TextView textView = AppManager.GetActivity(Context).FindViewById<TextView>(resouceId);
             RaiseError(textView, errorMsg);
         }
 

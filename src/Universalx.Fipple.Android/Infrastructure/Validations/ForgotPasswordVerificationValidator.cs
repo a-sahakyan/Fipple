@@ -12,7 +12,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsValidationCodeValid()
         {
-            TextView inpVerificationCode = ApplicationManager.GetActivity(Context).FindViewById<TextView>(Resource.Id.inpVerificationCode);
+            TextView inpVerificationCode = AppManager.GetActivity(Context).FindViewById<TextView>(Resource.Id.inpVerificationCode);
 
             if (string.IsNullOrWhiteSpace(inpVerificationCode.Text))
             {

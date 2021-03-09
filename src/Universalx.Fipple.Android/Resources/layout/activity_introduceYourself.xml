@@ -34,11 +34,13 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:id="@+id/txtGender"/>
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/radioGroupGender">
         <RadioButton
             android:id="@+id/radioBtnMale"
             android:layout_width="140dp"
@@ -55,7 +57,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/button_selectable"
             android:button="@drawable/button_selectable"
-            android:checked="true"
+            android:checked="false"
             android:text="Female"
             android:padding="10dp"
             android:textAlignment="center"

@@ -12,7 +12,7 @@ namespace Universalx.Fipple.Android.Infrastructure.Validations
 
         public bool IsEmailValid()
         {
-            EditText inpEmail = ApplicationManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpEmail);
+            EditText inpEmail = AppManager.GetActivity(Context).FindViewById<EditText>(Resource.Id.inpEmail);
 
             if (string.IsNullOrWhiteSpace(inpEmail.Text))
             {
