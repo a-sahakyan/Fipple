@@ -5,7 +5,7 @@ using Universalx.Fipple.Identity.Helpers;
 
 namespace Universalx.Fipple.Identity.DBMap.Entities
 {
-    public class Users : IdentityUser<Guid>
+    public class Users : IdentityUser<long>
     {
         [Required]
         [StringLength(50)]

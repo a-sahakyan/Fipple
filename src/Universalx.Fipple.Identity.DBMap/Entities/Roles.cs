@@ -3,7 +3,7 @@ using System;
 
 namespace Universalx.Fipple.Identity.DBMap.Entities
 {
-    public class Roles : IdentityRole<Guid>
+    public class Roles : IdentityRole<long>
     {
     }
 }

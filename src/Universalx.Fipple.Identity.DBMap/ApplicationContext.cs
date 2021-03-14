@@ -5,7 +5,7 @@ using Universalx.Fipple.Identity.DBMap.Entities;
 
 namespace Universalx.Fipple.Identity.DBMap
 {
-    public class ApplicationContext : IdentityDbContext<Users, Roles, Guid>
+    public class ApplicationContext : IdentityDbContext<Users, Roles, long>
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
