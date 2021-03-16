@@ -72,9 +72,9 @@ namespace Universalx.Fipple.Android.Activities
         {
             GradientDrawable shape = new GradientDrawable();
             shape.SetShape(ShapeType.Rectangle);
-            shape.SetCornerRadius(Screen.DipToAbsolutePixel(this, AppResource.DipDefault.Radius));
+            shape.SetCornerRadius(Screen.DipToAbsolutePixel(AppResource.DipDefault.Radius));
             shape.SetColor(Color.White);
-            shape.SetStroke(Screen.DipToAbsolutePixel(this, AppResource.DipDefault.StrokeWidth),
+            shape.SetStroke(Screen.DipToAbsolutePixel(AppResource.DipDefault.StrokeWidth),
                 GetColorStateList(Resource.Color.colorHavelockBlue));
 
             return shape;
