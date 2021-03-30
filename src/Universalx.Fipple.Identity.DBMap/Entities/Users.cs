@@ -18,7 +18,7 @@ namespace Universalx.Fipple.Identity.DBMap.Entities
         public override string SecurityStamp
         {
             get => base.SecurityStamp; 
-            set => base.SecurityStamp = RandomBuilder.GetRandomNumber(100000, 999999);
+            set => base.SecurityStamp = RandomBuilder.GenerateRandomNumber(100000, 999999);
         }
     }
 }

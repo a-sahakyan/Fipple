@@ -1,11 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Universalx.Fipple.Identity.Api.Filters;
-using Universalx.Fipple.Identity.Api.Helpers;
 using Universalx.Fipple.Identity.Api.Middlewares;
 using Universalx.Fipple.Identity.BusinessLogic.DependencyInjection;
 using Universalx.Fipple.Identity.DBMap;
@@ -26,6 +28,27 @@ namespace Universalx.Fipple.Identity.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.Configure<JwtTokenSettings>(Configuration.GetSection("JwtTokenSettings"));
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    RequireExpirationTime = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.ASCII.GetBytes(Configuration["JwtTokenSettings:Secret"])),
+                };
+            });
 
             services.AddIdentity<Users, Roles>()
                     .AddEntityFrameworkStores<ApplicationContext>()
@@ -51,6 +74,7 @@ namespace Universalx.Fipple.Identity.Api
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

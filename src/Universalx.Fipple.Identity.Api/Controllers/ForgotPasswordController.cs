@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Universalx.Fipple.Identity.Abstraction;
 using Universalx.Fipple.Identity.Api.Helpers;
@@ -7,7 +8,6 @@ using Universalx.Fipple.Identity.DTO.Response;
 
 namespace Universalx.Fipple.Identity.Api.Controllers
 {
-
     public class ForgotPasswordController : BaseController
     {
         private readonly IUserService _userService;
@@ -20,6 +20,7 @@ namespace Universalx.Fipple.Identity.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetUserByEmailAsync(string email)
         {
             ResponseUserDto userDto = await _userService.GetUserByEmail(email);
@@ -37,6 +38,7 @@ namespace Universalx.Fipple.Identity.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> ConfirmResetPasswordAsync(RequestConfirmAccountDto confirmAccountDto)
         {
             await _userService.ConfirmVerificationCodeAsync(confirmAccountDto);
@@ -44,6 +46,7 @@ namespace Universalx.Fipple.Identity.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> ResetPasswordAsync(RequestResetPasswordDto resetPasswordDto)
         {
             await _userService.ResetPasswordAsync(resetPasswordDto);

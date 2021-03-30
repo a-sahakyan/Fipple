@@ -10,6 +10,7 @@ namespace Universalx.Fipple.Identity.BusinessLogic.DependencyInjection
     {
         public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEmailService, EmailService>();
             services.ConfigureRepositories(configuration);

@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Universalx.Fipple.Identity.Abstraction;
 using Universalx.Fipple.Identity.Api.Helpers;
@@ -11,13 +15,28 @@ namespace Universalx.Fipple.Identity.Api.Controllers
     {
         private IUserService _userService;
         private IEmailService _emailService;
+        private IJwtTokenService _jwtTokenService;
 
-        public AccountController(IUserService userService, IEmailService emailService)
-            => (_userService, _emailService) = (userService, emailService);
+        public AccountController(IUserService userService, IEmailService emailService, IJwtTokenService jwtTokenService)
+        {
+            _userService = userService;
+            _emailService = emailService;
+            _jwtTokenService = jwtTokenService;
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> LoginAsync(RequestLoginDto loginDto)
+        {
+            ResponseUserDto userDto = await _userService.LoginAsync(loginDto);
+            ResponseJwtTokenDto jwtToken = GetJwtToken(userDto);
+
+            return OkResult(jwtToken);
+        }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateUserAsync(RequestUserDto userDto)
-        {          
+        {
             ResponseUserDto responseUserDto = await _userService.CreateUserAsync(userDto);
             await SendConfirmAccountEmailAsync(responseUserDto);
 
@@ -33,10 +52,33 @@ namespace Universalx.Fipple.Identity.Api.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> ConfirmAccountAsync(RequestConfirmAccountDto confirmAccountDto)
         {
             await _userService.ConfirmAccountAsync(confirmAccountDto);
             return OkResult();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> RefreshTokenAsync(RequestTokenDto tokenDto)
+        {
+            ResponseUserDto userDto = await _jwtTokenService.UpdateRefreshToken(tokenDto);
+            ResponseJwtTokenDto jwtToken = GetJwtToken(userDto);
+
+            return OkResult(jwtToken);
+        }
+
+        private ResponseJwtTokenDto GetJwtToken(ResponseUserDto userDto)
+        {
+            Claim[] claims = new Claim[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, userDto.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, userDto.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            return _jwtTokenService.GenerateJwtToken(claims);
         }
     }
 }

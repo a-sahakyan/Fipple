@@ -17,7 +17,41 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
         private UserManager<Users> _userManager;
 
         public UserService(UserManager<Users> userManager)
-              => _userManager = userManager;
+        {
+            _userManager = userManager;
+        }
+
+        public async Task<ResponseUserDto> LoginAsync(RequestLoginDto userDto)
+        {
+            var user = await _userManager.FindByEmailAsync(userDto.Email);
+
+            if (user == null)
+            {
+                throw new HttpException(HttpStatusCode.BadRequest, ResponseError.WrongCredentials);
+            }
+
+            if (!user.EmailConfirmed)
+            {
+                throw new HttpException(HttpStatusCode.BadRequest, ResponseError.WrongCredentials);
+            }
+
+            bool isCorrect = await _userManager.CheckPasswordAsync(user, userDto.Password);
+
+            if (!isCorrect)
+            {
+                throw new HttpException(HttpStatusCode.BadRequest, ResponseError.WrongCredentials);
+            }
+
+            var responseUserDto = new ResponseUserDto
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+
+            return responseUserDto;
+        }
 
         public async Task<ResponseUserDto> CreateUserAsync(RequestUserDto userDto)
         {

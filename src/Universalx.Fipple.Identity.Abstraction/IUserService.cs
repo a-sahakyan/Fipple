@@ -6,6 +6,7 @@ namespace Universalx.Fipple.Identity.Abstraction
 {
     public interface IUserService
     {
+        Task<ResponseUserDto> LoginAsync(RequestLoginDto userDto);
         Task<ResponseUserDto> CreateUserAsync(RequestUserDto userDto);
         Task ConfirmAccountAsync(RequestConfirmAccountDto confirmAccountDto);
         Task<ResponseUserDto> GetUserByEmail(string email);

@@ -17,5 +17,7 @@ namespace Universalx.Fipple.Identity.DBMap
             base.OnModelCreating(builder);
             builder.HasDefaultSchema("identity");
         }
+
+        public virtual DbSet<RefreshTokens> RefreshTokens { get; set; }
     }
 }

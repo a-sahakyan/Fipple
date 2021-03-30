@@ -5,16 +5,25 @@ namespace Universalx.Fipple.Identity.Helpers
 {
     public static class RandomBuilder
     {
-        public static string GetRandomNumber(int min, int max)
+        public static string GenerateRandomNumber(int min, int max)
         {
             RNGCryptoServiceProvider rngProvider = new RNGCryptoServiceProvider();
 
-            var buffer = new byte[4];
+            byte[] buffer = new byte[4];
             rngProvider.GetBytes(buffer);
-            var seed = BitConverter.ToInt32(buffer, 0);
+            int seed = BitConverter.ToInt32(buffer, 0);
 
             Random random = new Random(seed);
             return random.Next(min, ++max).ToString();
+        }
+
+        public static string GenerateRefreshToken()
+        {
+            byte[] buffer = new byte[32];
+            using RandomNumberGenerator randomNumberGenerator = RandomNumberGenerator.Create();
+            randomNumberGenerator.GetBytes(buffer);
+
+            return Convert.ToBase64String(buffer);
         }
     }
 }

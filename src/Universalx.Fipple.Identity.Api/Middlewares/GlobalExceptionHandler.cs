@@ -56,7 +56,7 @@ namespace Universalx.Fipple.Identity.Api.Middlewares
                 Status = new Status
                 {
                     Failed = true,
-                    ErrorMessage = ResponseError.UnknownError,
+                    ErrorMessage = ResponseError.Unknown,
                     StatusCode = HttpStatusCode.InternalServerError
                 },
             });
