@@ -82,7 +82,7 @@ namespace Universalx.Fipple.Identity.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LogoutAsync([FromBody]RequestTokenDto tokenDto)
+        public async Task<IActionResult> LogoutAsync(RequestTokenDto tokenDto)
         {
             await _jwtTokenService.DeleteRefreshTokenAsync(tokenDto.RefreshToken);
             return OkResult();
