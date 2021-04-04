@@ -140,16 +140,19 @@ namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
                     b.Property<bool>("IsUsed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("JwtId")
-                        .HasColumnType("text");
+                    b.Property<Guid>("JwtId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Token")
-                        .HasColumnType("text");
+                        .HasMaxLength(44)
+                        .HasColumnType("char(44)");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Token");
 
                     b.HasIndex("UserId");
 

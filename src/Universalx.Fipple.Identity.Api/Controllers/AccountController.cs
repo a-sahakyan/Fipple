@@ -28,9 +28,31 @@ namespace Universalx.Fipple.Identity.Api.Controllers
         public async Task<IActionResult> LoginAsync(RequestLoginDto loginDto)
         {
             ResponseUserDto userDto = await _userService.LoginAsync(loginDto);
-            ResponseJwtTokenDto jwtToken = GetJwtToken(userDto);
+            ResponseJwtTokenDto jwtToken = await GetJwtTokenAsync(userDto);
 
             return OkResult(jwtToken);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> RefreshTokenAsync(RequestTokenDto tokenDto)
+        {
+            ResponseUserDto userDto = await _jwtTokenService.UpdateRefreshTokenAsUsedAsync(tokenDto);
+            ResponseJwtTokenDto jwtToken = await GetJwtTokenAsync(userDto);
+
+            return OkResult(jwtToken);
+        }
+
+        private async Task<ResponseJwtTokenDto> GetJwtTokenAsync(ResponseUserDto userDto)
+        {
+            Claim[] claims = new Claim[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, userDto.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, userDto.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            return await _jwtTokenService.GenerateJwtTokenAsync(claims);
         }
 
         [HttpPost]
@@ -60,25 +82,10 @@ namespace Universalx.Fipple.Identity.Api.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> RefreshTokenAsync(RequestTokenDto tokenDto)
+        public async Task<IActionResult> LogoutAsync([FromBody]RequestTokenDto tokenDto)
         {
-            ResponseUserDto userDto = await _jwtTokenService.UpdateRefreshToken(tokenDto);
-            ResponseJwtTokenDto jwtToken = GetJwtToken(userDto);
-
-            return OkResult(jwtToken);
-        }
-
-        private ResponseJwtTokenDto GetJwtToken(ResponseUserDto userDto)
-        {
-            Claim[] claims = new Claim[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, userDto.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, userDto.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            return _jwtTokenService.GenerateJwtToken(claims);
+            await _jwtTokenService.DeleteRefreshTokenAsync(tokenDto.RefreshToken);
+            return OkResult();
         }
     }
 }

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Universalx.Fipple.Identity.Helpers\Universalx.Fipple.Identity.Helpers.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\ApplicationDb\" />
+  </ItemGroup>
+
 </Project>

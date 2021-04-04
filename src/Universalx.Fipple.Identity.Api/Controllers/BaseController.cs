@@ -1,7 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
+using Universalx.Fipple.Identity.Constants;
+using Universalx.Fipple.Identity.DTO.Exception;
+using Universalx.Fipple.Identity.Helpers;
 
 namespace Universalx.Fipple.Identity.Api.Controllers
 {

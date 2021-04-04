@@ -68,10 +68,9 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
                 LastName = userDto.LastName,
                 Email = userDto.Email,
                 UserName = userDto.Email,
-                PasswordHash = userDto.Password
             };
 
-            IdentityResult identityResult = await _userManager.CreateAsync(user);
+            IdentityResult identityResult = await _userManager.CreateAsync(user, userDto.Password);
 
             if (!identityResult.Succeeded)
             {

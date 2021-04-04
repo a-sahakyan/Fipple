@@ -50,9 +50,19 @@ namespace Universalx.Fipple.Identity.Api
                 };
             });
 
-            services.AddIdentity<Users, Roles>()
-                    .AddEntityFrameworkStores<ApplicationContext>()
-                    .AddDefaultTokenProviders();
+            services.AddIdentity<Users, Roles>(options => 
+            {
+                options.Password = new PasswordOptions
+                {
+                    RequireDigit = false,
+                    RequireLowercase = false,
+                    RequireNonAlphanumeric = false,
+                    RequireUppercase = false,
+                    RequiredLength = 8,
+                    RequiredUniqueChars = 0
+                };
+            }).AddEntityFrameworkStores<ApplicationContext>()
+              .AddDefaultTokenProviders();
 
             services.ConfigureServices(Configuration);
             services.AddControllers(options =>

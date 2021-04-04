@@ -7,7 +7,8 @@ namespace Universalx.Fipple.Identity.Abstraction
 {
     public interface IJwtTokenService
     {
-        ResponseJwtTokenDto GenerateJwtToken(Claim[] claims);
-        Task<ResponseUserDto> UpdateRefreshToken(RequestTokenDto tokenDto);
+        Task<ResponseJwtTokenDto> GenerateJwtTokenAsync(Claim[] claims);
+        Task<ResponseUserDto> UpdateRefreshTokenAsUsedAsync(RequestTokenDto tokenDto);
+        Task DeleteRefreshTokenAsync(string token);
     }
 }

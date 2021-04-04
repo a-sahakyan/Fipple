@@ -173,6 +173,33 @@ namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                schema: "identity",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    Token = table.Column<string>(type: "char(44)", maxLength: 44, nullable: true),
+                    JwtId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsUsed = table.Column<bool>(type: "boolean", nullable: false),
+                    IsRevoked = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedDateUtc = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ExpireDateUtc = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "identity",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 schema: "identity",
@@ -216,6 +243,18 @@ namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_Token",
+                schema: "identity",
+                table: "RefreshTokens",
+                column: "Token");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_UserId",
+                schema: "identity",
+                table: "RefreshTokens",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -238,6 +277,10 @@ namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens",
+                schema: "identity");
+
+            migrationBuilder.DropTable(
+                name: "RefreshTokens",
                 schema: "identity");
 
             migrationBuilder.DropTable(

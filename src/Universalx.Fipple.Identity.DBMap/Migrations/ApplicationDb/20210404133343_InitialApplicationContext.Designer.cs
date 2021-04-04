@@ -10,7 +10,7 @@ using Universalx.Fipple.Identity.DBMap;
 namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210313173425_InitialApplicationContext")]
+    [Migration("20210404133343_InitialApplicationContext")]
     partial class InitialApplicationContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,16 +18,16 @@ namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("identity")
-                .UseIdentityByDefaultColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.2");
+                .HasAnnotation("ProductVersion", "5.0.4")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -50,7 +50,7 @@ namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -123,12 +123,50 @@ namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Universalx.Fipple.Identity.DBMap.Entities.RefreshTokens", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreatedDateUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("ExpireDateUtc")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("JwtId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Token")
+                        .HasMaxLength(44)
+                        .HasColumnType("char(44)");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Token");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("Universalx.Fipple.Identity.DBMap.Entities.Roles", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -156,7 +194,7 @@ namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -276,6 +314,17 @@ namespace Universalx.Fipple.Identity.DBMap.Migrations.ApplicationDb
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Universalx.Fipple.Identity.DBMap.Entities.RefreshTokens", b =>
+                {
+                    b.HasOne("Universalx.Fipple.Identity.DBMap.Entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

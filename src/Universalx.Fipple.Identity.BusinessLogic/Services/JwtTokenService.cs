@@ -33,7 +33,19 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
             _userManager = userManager;
         }
 
-        public ResponseJwtTokenDto GenerateJwtToken(Claim[] claims)
+        public async Task<ResponseJwtTokenDto> GenerateJwtTokenAsync(Claim[] claims)
+        {
+            string accessToken = GenerateAccessToken(claims, out Guid tokenId);
+            string refreshToken = await CreateRefreshTokenAsync(claims, tokenId);
+
+            return new ResponseJwtTokenDto
+            {
+                AccessToken = accessToken,
+                RefreshToken = refreshToken
+            };
+        }
+
+        private string GenerateAccessToken(Claim[] claims, out Guid tokenId)
         {
             byte[] key = Encoding.ASCII.GetBytes(_jwtTokenSettings.Secret);
 
@@ -47,9 +59,17 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
             JwtSecurityTokenHandler jwtTokenHandler = new JwtSecurityTokenHandler();
             SecurityToken token = jwtTokenHandler.CreateToken(tokenDescriptor);
 
+            tokenId = Guid.Parse(token.Id);
+            string accessToken = jwtTokenHandler.WriteToken(token);
+
+            return accessToken;
+        }
+
+        private async Task<string> CreateRefreshTokenAsync(Claim[] claims, Guid tokenId)
+        {
             var refreshToken = new RefreshTokens
             {
-                JwtId = token.Id,
+                JwtId = tokenId,
                 IsUsed = false,
                 UserId = long.Parse(claims.SingleOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub.ToString()).Value),
                 Token = RandomBuilder.GenerateRefreshToken(),
@@ -58,19 +78,13 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
                 CreatedDateUtc = DateTime.UtcNow
             };
 
-            _refreshTokenRepository.Update(refreshToken);
-            string jwtToken = jwtTokenHandler.WriteToken(token);
-
-            return new ResponseJwtTokenDto
-            {
-                AccessToken = jwtToken,
-                RefreshToken = refreshToken.Token
-            };
+            await _refreshTokenRepository.CreateAsync(refreshToken);
+            return refreshToken.Token;
         }
 
-        public async Task<ResponseUserDto> UpdateRefreshToken(RequestTokenDto tokenDto)
+        public async Task<ResponseUserDto> UpdateRefreshTokenAsUsedAsync(RequestTokenDto tokenDto)
         {
-            var refreshToken = _refreshTokenRepository.Get(t => t.Token == tokenDto.RefreshToken);
+            var refreshToken = await _refreshTokenRepository.GetByTokenAsync(tokenDto.RefreshToken);
 
             if (refreshToken == null)
             {
@@ -93,7 +107,7 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
             }
 
             refreshToken.IsUsed = true;
-            _refreshTokenRepository.Update(refreshToken);
+            await _refreshTokenRepository.UpdateAsync(refreshToken);
 
             var user = await _userManager.FindByIdAsync(refreshToken.UserId.ToString());
             var userDto = new ResponseUserDto
@@ -105,6 +119,11 @@ namespace Universalx.Fipple.Identity.BusinessLogic.Services
             };
 
             return userDto;
+        }
+
+        public async Task DeleteRefreshTokenAsync(string token)
+        {
+            await _refreshTokenRepository.DeleteAsync(token);
         }
     }
 }

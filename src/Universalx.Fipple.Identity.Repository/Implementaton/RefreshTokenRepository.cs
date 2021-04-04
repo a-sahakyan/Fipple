@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Universalx.Fipple.Identity.DBMap;
 using Universalx.Fipple.Identity.DBMap.Entities;
 using Universalx.Fipple.Identity.Repository.Abstraction;
@@ -16,15 +16,33 @@ namespace Universalx.Fipple.Identity.Repository.Implementaton
             this.applicationContext = applicationContext;
         }
 
-        public RefreshTokens Get(Expression<Func<RefreshTokens, bool>> expression)
+        public async Task<RefreshTokens> GetByTokenAsync(string token)
         {
-            return applicationContext.RefreshTokens.FirstOrDefault(expression);
+            string sqlQuery = "SELECT * FROM identity.\"RefreshTokens\"" +
+                              "WHERE \"Token\" = {0}";
+
+            IQueryable<RefreshTokens> query = applicationContext.RefreshTokens.FromSqlRaw(sqlQuery, token);
+            return await query.SingleOrDefaultAsync();
         }
-        
-        public void Update(RefreshTokens refreshTokens)
+
+        public async Task CreateAsync(RefreshTokens refreshTokens)
+        {
+            applicationContext.RefreshTokens.Add(refreshTokens);
+            await applicationContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(RefreshTokens refreshTokens)
         {
             applicationContext.RefreshTokens.Update(refreshTokens);
-            applicationContext.SaveChanges();
+            await applicationContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(string token)
+        {
+            var refreshToken = await GetByTokenAsync(token);
+
+            applicationContext.RefreshTokens.Remove(refreshToken);
+            await applicationContext.SaveChangesAsync();
         }
     }
 }
